@@ -14,6 +14,69 @@
     </Window.SystemBackdrop>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
+        <MenuBar Grid.Row="0">
+            <MenuBarItem Title="Fichier">
+                <MenuFlyoutItem Text="Importer" x:Name="mfiImport" Click="mfiImport_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xEA52;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Exporter"  x:Name="mfiExport" Click="mfiExport_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xEDE1;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Quitter"  x:Name="mfiQuit" Click="mfiQuit_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xF3B1;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuBarItem>
+        </MenuBar>
+
+        <Frame Grid.Row="1" x:Name="mainFrame"/>
+
+
+
+        <NavigationView
+            Grid.Row="2"
+            x:Name="navView"
+            PaneDisplayMode="Top"
+            IsSettingsVisible="False"
+            IsBackButtonVisible="Visible"
+            IsBackEnabled="True"
+            BackRequested="navView_BackRequested"
+            ItemInvoked="navView_ItemInvoked">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Vue" Icon="View">
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Projets" x:Name="iProjets">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE838;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Clients" x:Name="iClients" Icon="People"/>
+                        <NavigationViewItem Content="Employés" x:Name="iEmployes">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE902;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+
+                <NavigationViewItem Content="Édition" Icon="Edit">
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Ajouter un projet" x:Name="iAjoutProjet" Icon="Add"/>
+                        <NavigationViewItem Content="Assigner un projet" x:Name="iAssignProjet" Icon="Attach"/>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+        </NavigationView>
     </Grid>
 </Window>
