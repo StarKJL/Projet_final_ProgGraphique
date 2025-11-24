@@ -1,8 +1,8 @@
 /*KimMai Jennifer Lebel*/
-DROP TABLE IF EXISTS Employe;
-DROP TABLE IF EXISTS Client;
-DROP TABLE IF EXISTS Projet;
 DROP TABLE IF EXISTS EmployeProjet;
+DROP TABLE IF EXISTS Projet;
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS Employe;
 -- Employés
 CREATE TABLE Employe(
 matricule VARCHAR(10) PRIMARY KEY ,
@@ -14,13 +14,12 @@ adresse VARCHAR(255),
 dateEmbauche DATE,
 tauxHoraire DOUBLE,
 photoId VARCHAR(1204),
-statut ENUM('Journalier','Permament')
+statut ENUM('Journalier','Permanent')
 );
 -- Client
 CREATE TABLE Client (
 id INT PRIMARY KEY ,
 nom VARCHAR(255),
-prenom VARCHAR(255),
 adresse VARCHAR(255),
 telephone VARCHAR(20),
 email VARCHAR(255)
