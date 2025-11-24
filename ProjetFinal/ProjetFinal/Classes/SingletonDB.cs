@@ -15,6 +15,8 @@ namespace ProjetFinal.Classe
         string connectionString;
         ObservableCollection<Client> listeClient;
         ObservableCollection<Projet> listeProjet;
+        ObservableCollection<Employe> listeEmploye;
+
         ObservableCollection<EmployeProjet> listeProjetEmploye;
 
 
@@ -24,6 +26,8 @@ namespace ProjetFinal.Classe
         internal ObservableCollection<Client> ListeClient { get => listeClient;}
         internal ObservableCollection<Projet> ListeProjet { get => listeProjet; }
         internal ObservableCollection<EmployeProjet> ListeProjetEmploye { get => listeProjetEmploye;}
+        internal ObservableCollection<Employe> ListeEmploye { get => listeEmploye; }
+
 
         private SingletonDB()
         {
@@ -97,6 +101,174 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public void getAllEmploye()
+        {
+            listeEmploye.Clear();
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = con.CreateCommand();
+                commande.CommandText = "Select * from employe";
+                con.Open();
+                using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
+                {
+                    string nom = r.GetString("nom");
+                    string prenom = r.GetString("prenom");
+                    DateTime dateNaissance = r.GetDateTime("dateNaissance");
+                    string email = r.GetString("email");
+                    string adresse = r.GetString("adresse");
+                    DateTime dateEmbauche = r.GetDateTime("dateEmbauche");
+                    double tauxHoraire = r.GetDouble("tauxHoraire");
+                    string photoId = r.GetString("photoId");
+                    string statut = r.GetString("statut");
+
+
+                    Employe employe = new Employe(nom,prenom,dateNaissance,email,adresse,dateEmbauche,tauxHoraire,photoId,statut);
+                    listeEmploye.Add(employe);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
+        public void getAllEmployeInfoParProjet(string nombre)
+        {
+            using MySqlConnection con = new MySqlConnection(connectionString);
+            MySqlCommand commande = new MySqlCommand("employe_de_projet");
+
+            commande.Connection = con;
+            listeEmploye.Clear();
+            try
+            {
+             
+                commande.CommandType = System.Data.CommandType.StoredProcedure;
+
+                commande.Parameters.AddWithValue("_no",nombre);
+                con.Open();
+                MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
+                {
+                    string nom = r.GetString("nom");
+                    string prenom = r.GetString("prenom");
+                    DateTime dateNaissance = r.GetDateTime("dateNaissance");
+                    string email = r.GetString("email");
+                    string adresse = r.GetString("adresse");
+                    DateTime dateEmbauche = r.GetDateTime("dateEmbauche");
+                    double tauxHoraire = r.GetDouble("tauxHoraire");
+                    string photoId = r.GetString("photoId");
+                    string statut = r.GetString("statut");
+
+
+                    Employe employe = new Employe(nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut);
+                    listeEmploye.Add(employe);
+                }
+                r.Close();
+                con.Close();
+            }
+            catch (MySqlException ex)
+            {
+                if (con.State == System.Data.ConnectionState.Open)
+                    con.Close();
+            }
+
+        }
+
+        public void getAllEmployeParProjet(int no_Projet)
+        {
+            listeProjetEmploye.Clear();
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = con.CreateCommand();
+                commande.CommandText = "Select * from employeprojet where noProjet = @noProjet";
+                commande.Parameters.AddWithValue("@noProjet", $"{no_Projet}%");
+
+                con.Open();
+                using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
+                {
+                    int nbrHrs = r.GetInt32("nbrHrs");
+                    double salaire = r.GetDouble("salaire");
+                    string matricule = r.GetString("matricule");
+                    string noProjet = r.GetString("noProjet");
+                   
+
+
+                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,no_Projet);
+                    listeProjetEmploye.Add(projetEmployes);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        //Inserts
+        public void creeProjet(string titre,DateTime dateDebut,string description,double budget,double totalSalaire,int idClient,string statut)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "insert into projet values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut) ";
+                commande.Parameters.AddWithValue("@titre", titre);
+                commande.Parameters.AddWithValue("@dateDebut", dateDebut);
+                commande.Parameters.AddWithValue("@description", description);
+                commande.Parameters.AddWithValue("@budget", budget);
+                commande.Parameters.AddWithValue("@totalSalaire", totalSalaire);
+                commande.Parameters.AddWithValue("@idClient", idClient);
+                commande.Parameters.AddWithValue("@statut", statut);
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+                using MySqlCommand commande2 = new MySqlCommand();
+                commande2.Connection = con;
+                commande2.CommandText = "select LAST_INSERT_ID() ";
+                var res = commande2.ExecuteScalar();
+                getAllProjets(); 
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        public void associerEmployeAProjet(int nbHrs,double salaire,string matricule,string noProjet)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "insert into employeprojet values(@nbHrs) ";
+                commande.Parameters.AddWithValue("@nbHrs", nbHrs);
+                commande.Parameters.AddWithValue("@salaire", salaire);
+                commande.Parameters.AddWithValue("@matricule", matricule);
+                commande.Parameters.AddWithValue("@noProjet", noProjet);
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+                using MySqlCommand commande2 = new MySqlCommand();
+                commande2.Connection = con;
+                commande2.CommandText = "select LAST_INSERT_ID() ";
+                var res = commande2.ExecuteScalar();
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
 
 
     }
