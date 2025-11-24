@@ -27,7 +27,7 @@ namespace ProjetFinal.Classe
 
         private SingletonDB()
         {
-            connectionString = "Server=cours.cegep3r.info;Database=a2025_420345ri_gr1_2486924-kim-mai-jennifer-lebel;Uid=2486924;Pwd=2486924;";
+            connectionString = "Server=cours.cegep3r.info;Database=a2025_420335-345ri_greq5;Uid=2486924;Pwd=2486924;";
             listeClient = new ObservableCollection<Client>();
             listeProjet = new ObservableCollection<Projet>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
