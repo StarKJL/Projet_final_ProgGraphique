@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using ProjetFinal.Classe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,8 @@ namespace ProjetFinal.Vues
         public AfficherEmployes()
         {
             InitializeComponent();
+            gvEmployes.ItemsSource = SingletonDB.getInstance().ListeEmploye;
+            SingletonDB.getInstance().getAllEmploye();
         }
     }
 }

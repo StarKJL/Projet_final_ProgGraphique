@@ -12,12 +12,41 @@
     x:Name="gvProjets">
         <GridView.ItemTemplate>
             <DataTemplate x:DataType="local:Projet">
-                <Grid>
+                <Grid
+                    Width="400px"
+                    Height="100px"
+                    CornerRadius="20"
+                    Padding="10"
+                    Margin="5"
+                    Background="LightBlue">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Text="{x:Bind NoProjet}"/>
+                    <TextBlock Grid.Row="0">
+                        <Run Text="{x:Bind NoProjet}"/>
+                        <Run Text="|"/>
+                        <Run Text="{x:Bind NomClient}"/>
+                    </TextBlock>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Right" Text="{x:Bind Statut}"/>
+
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="20" Text="{x:Bind Titre}"/>
+
+                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" Text="{x:Bind Description}"/>
+
+                    <TextBlock Grid.Row="3" Text="{x:Bind DateDebut}"/>
+                    <TextBlock Grid.Row="3" HorizontalAlignment="Center">
+                        <Run Text="{x:Bind Budget}"/>
+                        <Run Text="$"/>
+                    </TextBlock>
+                    <TextBlock Grid.Row="3" HorizontalAlignment="Right">
+                        <Run Text="{x:Bind TotalSalaire}"/>
+                        <Run Text="$"/>
+                    </TextBlock>
                 </Grid>
             </DataTemplate>
         </GridView.ItemTemplate>
