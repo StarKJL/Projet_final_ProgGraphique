@@ -60,38 +60,10 @@ namespace ProjetFinal
                     case "iAssignProjet":
                         mainFrame.Navigate(typeof(AssignerProjet));
                         break ;
+                    case "iConnexion":
+                        mainFrame.Navigate(typeof(Connexion));
+                        break;
                 }
-            }
-        }
-
-        private async void mfiImport_Click(object sender, RoutedEventArgs e)
-        {
-            var picker = new Windows.Storage.Pickers.FileOpenPicker();
-            picker.FileTypeFilter.Add(".csv");
-            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
-            WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
-            Windows.Storage.StorageFile monFichier = await picker.PickSingleFileAsync();
-            if (monFichier != null)
-            {
-                /*
-                var lignes = await Windows.Storage.FileIO.ReadLinesAsync(monFichier);
-                List<Appareil_Electronique> liste = new List<Appareil_Electronique>();
-                foreach (var ligne in lignes)
-                {
-                    var v = ligne.Split(";");
-                    if (v.Length > 0)
-                    {
-                        string code = v[0];
-                        string modele = v[1];
-                        string appareil = v[2];
-                        string categorie = v[3];
-                        string couleur = v[4];
-                        double prix = Convert.ToDouble(v[5]);
-                        liste.Add(new Appareil_Electronique(code, modele, appareil, categorie, couleur, prix));
-                    }
-                }
-                SingletonBD.getInstance().ajouterListe(liste);
-                mainFrame.Navigate(typeof(Afficher));*/
             }
         }
 
@@ -103,13 +75,10 @@ namespace ProjetFinal
             picker.SuggestedFileName = "test";
             picker.FileTypeChoices.Add("Fichier CSV", new List<string>() { ".csv" });
             
-            //Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
+            Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
             List<Projet> liste = SingletonDB.getInstance().exporter();
-           /* liste.Add(new Client("Line", "Savoie", "line.Savoie@mail.com"));
-            liste.Add(new Client("Marie", “Marcotte", “marie.marcotte@mail.com"));
-            liste.Add(new Client("Liam", "Gélinas", “liam.gelinas@mail.com"));
             if (monFichier != null)
-                await Windows.Storage.FileIO.WriteLinesAsync(monFichier, liste.ConvertAll(x => x.ToString()), Windows.Storage.Streams.UnicodeEncoding.Utf8);*/
+                await Windows.Storage.FileIO.WriteLinesAsync(monFichier, liste.ConvertAll(x => x.ToString()), Windows.Storage.Streams.UnicodeEncoding.Utf8);
         }
 
         private void mfiQuit_Click(object sender, RoutedEventArgs e)

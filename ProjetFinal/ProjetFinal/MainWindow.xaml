@@ -22,11 +22,6 @@
 
         <MenuBar Grid.Row="0">
             <MenuBarItem Title="Fichier">
-                <MenuFlyoutItem Text="Importer" x:Name="mfiImport" Click="mfiImport_Click">
-                    <MenuFlyoutItem.Icon>
-                        <FontIcon Glyph="&#xEA52;" />
-                    </MenuFlyoutItem.Icon>
-                </MenuFlyoutItem>
                 <MenuFlyoutItem Text="Exporter"  x:Name="mfiExport" Click="mfiExport_Click">
                     <MenuFlyoutItem.Icon>
                         <FontIcon Glyph="&#xEDE1;" />
@@ -75,6 +70,9 @@
                         <NavigationViewItem Content="Ajouter un projet" x:Name="iAjoutProjet" Icon="Add"/>
                         <NavigationViewItem Content="Assigner un projet" x:Name="iAssignProjet" Icon="Attach"/>
                     </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+
+                <NavigationViewItem Content="Connexion" x:Name="iConnexion" Icon="Account">
                 </NavigationViewItem>
             </NavigationView.MenuItems>
         </NavigationView>
