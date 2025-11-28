@@ -247,7 +247,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into employeprojet values(@nbHrs) ";
+                commande.CommandText = "insert into employeprojet values(@nbHrs,@salaire,@matricule,@noProjet) ";
                 commande.Parameters.AddWithValue("@nbHrs", nbHrs);
                 commande.Parameters.AddWithValue("@salaire", salaire);
                 commande.Parameters.AddWithValue("@matricule", matricule);
@@ -268,6 +268,75 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+
+
+        public void creeClient(string nom,string adresse, string telephone, string email)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "insert into client values(@nom,@adresse,@telephone,@email) ";
+                commande.Parameters.AddWithValue("@nom", nom);
+                commande.Parameters.AddWithValue("@adresse", adresse);
+                commande.Parameters.AddWithValue("@telephone", telephone);
+                commande.Parameters.AddWithValue("@email", email);
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+                using MySqlCommand commande2 = new MySqlCommand();
+                commande2.Connection = con;
+                commande2.CommandText = "select LAST_INSERT_ID() ";
+                var res = commande2.ExecuteScalar();
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
+        public void creeEmploye(string nom,string prenom,DateTime dateNaissance,string email,string adresse,DateTime dateEmbauche,double tauxHoraire,string photoId,string statut)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "insert into employe values(@nom,@prenom,@dateNaissance,@email,@adresse,@dateEmbauche,@tauxHoraire,@photoId,@statut) ";
+                commande.Parameters.AddWithValue("@nom", nom);
+                commande.Parameters.AddWithValue("@prenom", prenom);
+                commande.Parameters.AddWithValue("@dateNaissance", dateNaissance);
+                commande.Parameters.AddWithValue("@email", email);
+                commande.Parameters.AddWithValue("@adresse", adresse);
+                commande.Parameters.AddWithValue("@dateEmbauche", dateEmbauche);
+                commande.Parameters.AddWithValue("@tauxHoraire", tauxHoraire);
+                commande.Parameters.AddWithValue("@photoId", photoId);
+                commande.Parameters.AddWithValue("@statut", statut);
+
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+                using MySqlCommand commande2 = new MySqlCommand();
+                commande2.Connection = con;
+                commande2.CommandText = "select LAST_INSERT_ID() ";
+                var res = commande2.ExecuteScalar();
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
+
 
 
 

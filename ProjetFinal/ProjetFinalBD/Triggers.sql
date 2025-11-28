@@ -1,11 +1,10 @@
-/*KimMai Jennifer Lebel*/
-DROP TRIGGER IF EXISTS createMatricule;
+/*Trigger*/
 DELIMITER //
 CREATE TRIGGER createMatricule BEFORE INSERT
 ON employe
 FOR EACH ROW
 BEGIN
-SET NEW.matricule= CONCAT(SUBSTR(NEW.nom,1,2),'-',YEAR(NEW.dateNaissance),'-',FLOOR(RAND()*(99-10+1)+10));
+SET NEW.matricule= CONCAT(SUBSTR(nom,0,2),'-',YEAR(dateNaissance),'-',FLOOR(RAND()*(99-10+1)+10));
 END //
 DELIMITER ;
 
@@ -18,13 +17,34 @@ SET NEW.id= FLOOR(RAND()*(999-100+1)+100);
 END //
 DELIMITER ;
 DELIMITER //
-
-DROP TRIGGER IF EXISTS createNoProjet;
-DELIMITER //
 CREATE TRIGGER createNoProjet BEFORE INSERT
 ON projet
 FOR EACH ROW
 BEGIN
-SET NEW.noProjet= CONCAT(NEW.idClient,'-',FLOOR(RAND()*(99-01+1)+01),'-',YEAR(NEW.dateDebut));
+SET NEW.noProjet= CONCAT(idClient,'-',FLOOR(RAND()*(99-01+1)+01),'-',YEAR(dateDebut));
 END //
 DELIMITER ;
+DELIMITER //
+CREATE TRIGGER SalaireMIN BEFORE INSERT
+ON employe
+FOR EACH ROW
+BEGIN
+IF OLD.tauxHoraire<15 THEN
+SET NEW.tauxHoraire= 15;
+END IF;
+END //
+DELIMITER ;
+DELIMITER //
+CREATE TRIGGER BudgetMIN BEFORE INSERT
+ON projet
+FOR EACH ROW
+BEGIN
+IF OLD.budget<0 THEN
+SET NEW.budget= 1;
+END IF;
+END //
+DELIMITER ;
+
+
+
+ 
