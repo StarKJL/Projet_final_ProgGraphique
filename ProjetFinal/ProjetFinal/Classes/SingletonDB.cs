@@ -17,6 +17,7 @@ namespace ProjetFinal.Classe
         ObservableCollection<Client> listeClient;
         ObservableCollection<Projet> listeProjet;
         ObservableCollection<Employe> listeEmploye;
+
         ObservableCollection<EmployeProjet> listeProjetEmploye;
 
 
@@ -34,7 +35,6 @@ namespace ProjetFinal.Classe
             connectionString = "Server=cours.cegep3r.info;Database=a2025_420335-345ri_greq5;Uid=2486924;Pwd=2486924;";
             listeClient = new ObservableCollection<Client>();
             listeProjet = new ObservableCollection<Projet>();
-            listeEmploye = new ObservableCollection<Employe>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
 
         }
@@ -191,7 +191,7 @@ namespace ProjetFinal.Classe
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = con.CreateCommand();
-                commande.CommandText = "Select * from employeprojet where noProjet = @noProjet";
+                commande.CommandText = "select nbHrs, salaireCumul, matricule, noProjet,e.nom as nomEmploye,p.titre as titreProjet from employeprojet inner join employe e on e.matricule = employeprojet.matricule inner join projet p on employeprojet.noProjet = p.noProjet";
                 commande.Parameters.AddWithValue("@noProjet", $"{no_Projet}%");
 
                 con.Open();
@@ -202,10 +202,12 @@ namespace ProjetFinal.Classe
                     double salaire = r.GetDouble("salaire");
                     string matricule = r.GetString("matricule");
                     string noProjet = r.GetString("noProjet");
-                   
+                    string nomEmploye = r.GetString("nomEmploye");
+                    string titreProjet = r.GetString("titreProjet");
 
 
-                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,no_Projet);
+
+                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,no_Projet,nomEmploye,titreProjet);
                     listeProjetEmploye.Add(projetEmployes);
                 }
             }
@@ -223,7 +225,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into projet (titre,dateDebut,description,budget,totalSalaire,statut,idClient) values(@titre,@dateDebut,@description,@budget,@totalSalaire,@statut,@idClient)  ";
+                commande.CommandText = "insert into projet values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut)  ";
                 commande.Parameters.AddWithValue("@titre", titre);
                 commande.Parameters.AddWithValue("@dateDebut", dateDebut);
                 commande.Parameters.AddWithValue("@description", description);
