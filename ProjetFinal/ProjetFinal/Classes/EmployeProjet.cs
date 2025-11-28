@@ -12,9 +12,9 @@ namespace ProjetFinal.Classe
         string matriculeId;
        int heuresTravaillees;
         double salaire;
-        int projetId;
+        string projetId;
 
-        public EmployeProjet( int heuresTravaillees, double salaire, string matricule, int projetId)
+        public EmployeProjet( int heuresTravaillees, double salaire, string matricule, string projetId)
         {
             this.matriculeId = matricule;
             this.heuresTravaillees = heuresTravaillees;
@@ -25,7 +25,7 @@ namespace ProjetFinal.Classe
         public string MatriculeId { get => matriculeId; set => matriculeId = value; }
         public int HeuresTravaillees { get => heuresTravaillees; set => heuresTravaillees = value; }
         public double Salaire { get => salaire; set => salaire = value; }
-        public int ProjetId { get => projetId; set => projetId = value; }
+        public string ProjetId { get => projetId; set => projetId = value; }
 
         public override string ToString()
         {

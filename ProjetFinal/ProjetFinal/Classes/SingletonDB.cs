@@ -83,6 +83,7 @@ namespace ProjetFinal.Classe
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
+                    string noProjet = r.GetString("noProjet");
                     string titre = r.GetString("titre");
                     DateTime dateDebut = r.GetDateTime("dateDebut");
                     string description = r.GetString("description");
@@ -93,7 +94,7 @@ namespace ProjetFinal.Classe
                     string clientNom = r.GetString("nomClient");
 
 
-                    Projet projet = new Projet(titre,dateDebut,description,budget,totalSalaire,clientId,statut,clientNom);
+                    Projet projet = new Projet(noProjet,titre,dateDebut,description,budget,totalSalaire,clientId,statut,clientNom);
                     listeProjet.Add(projet);
                 }
             }
@@ -115,6 +116,7 @@ namespace ProjetFinal.Classe
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
+
                     string nom = r.GetString("nom");
                     string prenom = r.GetString("prenom");
                     DateTime dateNaissance = r.GetDateTime("dateNaissance");
@@ -179,7 +181,7 @@ namespace ProjetFinal.Classe
 
         }
 
-        public void getAllEmployeParProjet(int no_Projet)
+        public void getAllEmployeParProjet(string no_Projet)
         {
             listeProjetEmploye.Clear();
             try
@@ -376,7 +378,7 @@ namespace ProjetFinal.Classe
             }
         }
 
-        public void supprimerProjet(int noProjet)
+        public void supprimerProjet(string noProjet)
         {
             try
             {
