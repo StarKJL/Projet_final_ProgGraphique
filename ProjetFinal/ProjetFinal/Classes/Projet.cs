@@ -23,7 +23,7 @@ namespace ProjetFinal.Classe
 
         public Projet(string titre, DateTime dateDebut, string description, double budget, double totalSalaire, int clientId, string statut)
         {
-            this.noProjet = clientId+"-"+rand.Next(01, 99)+"-"+dateDebut.Year;
+
             this.titre = titre;
             this.dateDebut = dateDebut;
             this.description = description;
