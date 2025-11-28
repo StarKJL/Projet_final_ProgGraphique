@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAppSDK.Runtime.Packages;
+﻿using Microsoft.UI.Xaml;
+using Microsoft.WindowsAppSDK.Runtime.Packages;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -414,6 +415,23 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+        public List<Projet> exporter()
+        {
+            //var picker = new Windows.Storage.Pickers.FileSavePicker();
+            //var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
+            //WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
+            //picker.SuggestedFileName = "test";
+            //picker.FileTypeChoices.Add("Fichier CSV", new List<string>() { ".csv" });
+            ////crée le fichier
+            //Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
+            return listeProjet.ToList<Projet>();
+            
+
+        // La fonction ToString() de la classe Client retourne: nom;prenom;email
+        //if (monFichier != null)
+        //        await Windows.Storage.FileIO.WriteLinesAsync(monFichier, liste.ConvertAll(x => x.ToString()), Windows.Storage.Streams.UnicodeEncoding.Utf8);
+        }
+
 
 
 

@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.WindowsAppSDK.Runtime.Packages;
+using ProjetFinal.Classe;
 using ProjetFinal.Vues;
 using System;
 using System.Collections.Generic;
@@ -101,10 +102,10 @@ namespace ProjetFinal
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
             picker.SuggestedFileName = "test";
             picker.FileTypeChoices.Add("Fichier CSV", new List<string>() { ".csv" });
-            /*
-            Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
-            List<Client> liste = new List<Client>();
-            liste.Add(new Client("Line", "Savoie", "line.Savoie@mail.com"));
+            
+            //Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
+            List<Projet> liste = SingletonDB.getInstance().exporter();
+           /* liste.Add(new Client("Line", "Savoie", "line.Savoie@mail.com"));
             liste.Add(new Client("Marie", “Marcotte", “marie.marcotte@mail.com"));
             liste.Add(new Client("Liam", "Gélinas", “liam.gelinas@mail.com"));
             if (monFichier != null)
