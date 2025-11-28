@@ -13,18 +13,27 @@
         <GridView.ItemTemplate> 
             <DataTemplate x:DataType="local:Employe">
                 <StackPanel
-                Width="400px"
-                Height="100px"
+                Width="200px"
+                Height="300px"
                 CornerRadius="20"
                 Padding="10"
                 Margin="5"
                 Background="LightBlue">
                     <TextBlock Text="{x:Bind Matricule}"/>
 
+                    <Image Source="{x:Bind PhotoIdentite}"
+                           HorizontalAlignment="Left"
+                           Width="100px"/>
                     <TextBlock>
                         <Run Text="{x:Bind Prenom}"/>
                         <Run Text="{x:Bind Nom}"/>
                     </TextBlock>
+                    <TextBlock Text="{x:Bind Email}"/>
+                    <TextBlock Text="{x:Bind DateNaissance}"/>
+                    <TextBlock Text="{x:Bind Adresse}"/>
+                    <TextBlock Margin="10"/>
+                    <TextBlock Text="{x:Bind TauxHoraire}"/>
+                    <TextBlock Text="{x:Bind Statut}"/>
 
 
                 </StackPanel>
