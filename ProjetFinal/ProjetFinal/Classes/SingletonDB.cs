@@ -78,7 +78,7 @@ namespace ProjetFinal.Classe
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = con.CreateCommand();
-                commande.CommandText = "Select * from projet";
+                commande.CommandText = "SELECT noprojet, titre, datedebut, description, budget, totalsalaire, statut, idclient, id, nom, adresse, telephone, email,C.nom FROM projet INNER JOIN Client C on Projet.idClient = C.id";
                 con.Open();
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
@@ -90,9 +90,10 @@ namespace ProjetFinal.Classe
                     double totalSalaire = r.GetDouble("totalSalaire");
                     int clientId = r.GetInt32("clientId");
                     string statut = r.GetString("statut");
+                    string clientNom = r.GetString("C.nom");
 
 
-                    Projet projet = new Projet(titre,dateDebut,description,budget,totalSalaire,clientId,statut);
+                    Projet projet = new Projet(titre,dateDebut,description,budget,totalSalaire,clientId,statut,clientNom);
                     listeProjet.Add(projet);
                 }
             }
@@ -217,7 +218,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into projet values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut) ";
+                commande.CommandText = "insert into projet values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut)  ";
                 commande.Parameters.AddWithValue("@titre", titre);
                 commande.Parameters.AddWithValue("@dateDebut", dateDebut);
                 commande.Parameters.AddWithValue("@description", description);
@@ -334,7 +335,83 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+        //Supression
+        public void supprimerClient(int id)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "delete from client where id = @id";
+                commande.Parameters.AddWithValue("@id", id);
+                con.Open();
+                int i = commande.ExecuteNonQuery();
 
+                getAllClients(); 
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void supprimerEmploye(string matricule)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "delete from employe where matricule = @matricule";
+                commande.Parameters.AddWithValue("@matricule", matricule);
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+                getAllEmploye(); 
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void supprimerProjet(int noProjet)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "delete from projet where noProjet = @noProjet";
+                commande.Parameters.AddWithValue("@noProjet", noProjet);
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "delete from employeprojet where noProjet = @noProjet";
+                commande.Parameters.AddWithValue("@noProjet", noProjet);
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+               getAllEmployeParProjet(noProjet);
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
 
 
 
