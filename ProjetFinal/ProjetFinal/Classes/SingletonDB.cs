@@ -78,7 +78,7 @@ namespace ProjetFinal.Classe
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = con.CreateCommand();
-                commande.CommandText = "SELECT noprojet, titre, datedebut, description, budget, totalsalaire, statut, idclient, id, nom, adresse, telephone, email,C.nom FROM projet INNER JOIN Client C on Projet.idClient = C.id";
+                commande.CommandText = "select noprojet, titre, datedebut, description, budget, totalsalaire, statut, idclient, id, nom, adresse, telephone, email,c.nom from projet inner join client c on projet.idClient = c.id";
                 con.Open();
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
