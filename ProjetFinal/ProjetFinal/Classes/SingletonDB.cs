@@ -117,6 +117,7 @@ namespace ProjetFinal.Classe
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
+                    string matricule = r.GetString("matricule");
 
                     string nom = r.GetString("nom");
                     string prenom = r.GetString("prenom");
@@ -129,7 +130,7 @@ namespace ProjetFinal.Classe
                     string statut = r.GetString("statut");
 
 
-                    Employe employe = new Employe(nom,prenom,dateNaissance,email,adresse,dateEmbauche,tauxHoraire,photoId,statut);
+                    Employe employe = new Employe(matricule,nom,prenom,dateNaissance,email,adresse,dateEmbauche,tauxHoraire,photoId,statut);
                     listeEmploye.Add(employe);
                 }
             }
@@ -157,6 +158,7 @@ namespace ProjetFinal.Classe
                 MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
+                    string matricule = r.GetString("matricule");
                     string nom = r.GetString("nom");
                     string prenom = r.GetString("prenom");
                     DateTime dateNaissance = r.GetDateTime("dateNaissance");
@@ -168,7 +170,7 @@ namespace ProjetFinal.Classe
                     string statut = r.GetString("statut");
 
 
-                    Employe employe = new Employe(nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut);
+                    Employe employe = new Employe(matricule,nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut);
                     listeEmploye.Add(employe);
                 }
                 r.Close();
