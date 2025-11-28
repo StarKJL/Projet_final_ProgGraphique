@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace ProjetFinal.Classe
 {
@@ -19,16 +20,15 @@ namespace ProjetFinal.Classe
         string photoIdentite;
         string statut;
 
-        Random rand = new Random(); //Juste pour generer un nombre aleatoire
 
-        public Employe(string nom, string prenom, DateTime dateNaissance, string email, string adresse, DateTime dateEmbauche, double tauxHoraire, string photoIdentite, string statut)
+        public Employe(string matricule,string nom, string prenom, DateTime dateNaissance, string email, string adresse, DateTime dateEmbauche, double tauxHoraire, string photoIdentite, string statut)
         {
 
-            
+            this.matricule = matricule;
             this.nom = nom;
             this.prenom = prenom;
             this.dateNaissance = dateNaissance;
-            this.matricule = nom.Substring(0,2)+"-"+dateNaissance.Year+"-"+rand.Next(10,99);
+            
             this.email = email;
             this.adresse = adresse;
             this.dateEmbauche = dateEmbauche;

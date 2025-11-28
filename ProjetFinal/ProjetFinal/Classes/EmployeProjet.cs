@@ -13,8 +13,10 @@ namespace ProjetFinal.Classe
        int heuresTravaillees;
         double salaire;
         string projetId;
+        string nomEmploye;
+        string titreProjet;
 
-        public EmployeProjet( int heuresTravaillees, double salaire, string matricule, string projetId)
+        public EmployeProjet( int heuresTravaillees, double salaire, string matricule, string projetId,string nomEmploye,string titreProjet)
         {
             this.matriculeId = matricule;
             this.heuresTravaillees = heuresTravaillees;
