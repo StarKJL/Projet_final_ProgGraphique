@@ -35,6 +35,7 @@ namespace ProjetFinal.Classe
             connectionString = "Server=cours.cegep3r.info;Database=a2025_420335-345ri_greq5;Uid=2486924;Pwd=2486924;";
             listeClient = new ObservableCollection<Client>();
             listeProjet = new ObservableCollection<Projet>();
+            listeEmploye = new ObservableCollection<Employe>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
 
         }
@@ -57,13 +58,14 @@ namespace ProjetFinal.Classe
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
+                    int id = r.GetInt32("id");
                     string nom = r.GetString("nom");
                     string adresse = r.GetString("adresse");
                     string telephone = r.GetString("telephone");
                     string email = r.GetString("email");
 
 
-                    Client client = new Client(nom,adresse,telephone,email);
+                    Client client = new Client(id,nom,adresse,telephone,email);
                     listeClient.Add(client);
                 }
             }
@@ -225,7 +227,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into projet values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut)  ";
+                commande.CommandText = "insert into projet (titre,dateDebut,description,budget,totalSalaire,idClient,statut) values(@titre,@dateDebut,@description,@budget,@totalSalaire,@idClient,@statut)";
                 commande.Parameters.AddWithValue("@titre", titre);
                 commande.Parameters.AddWithValue("@dateDebut", dateDebut);
                 commande.Parameters.AddWithValue("@description", description);

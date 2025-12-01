@@ -15,9 +15,9 @@ namespace ProjetFinal.Classe
         string email;
 
         Random rand = new Random(); 
-        public Client(string nom, string adresse, string telephone, string email)
+        public Client(int id, string nom, string adresse, string telephone, string email)
         {
-            this.id = rand.Next(100, 999);
+            this.id = id;
             this.nom = nom;
             this.adresse = adresse;
             this.telephone = telephone;
