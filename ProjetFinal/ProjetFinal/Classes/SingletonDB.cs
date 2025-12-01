@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.WindowsAppSDK.Runtime.Packages;
 using MySql.Data.MySqlClient;
+using ProjetFinal.Classes;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +20,7 @@ namespace ProjetFinal.Classe
         ObservableCollection<Employe> listeEmploye;
 
         ObservableCollection<EmployeProjet> listeProjetEmploye;
+        admin compte;
 
 
 
@@ -46,6 +48,63 @@ namespace ProjetFinal.Classe
                 instance = new SingletonDB();
             return instance;
         }
+
+        public void connexion(string usernameInput, string passwordInput)
+        {
+            try
+            {
+                if (usernameInput == compte.Username && passwordInput == compte.Password)
+                {
+                    compte.Actif = true;
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void deconnexion()
+        {
+            try
+            {
+                
+                    compte.Actif = false;
+                
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
+        public void getCompte() //charge la liste avec tous les clients
+        {
+            try { 
+            using MySqlConnection con = new MySqlConnection(connectionString);
+            using MySqlCommand commande = con.CreateCommand();
+            commande.CommandText = "Select * from client";
+            con.Open();
+            using MySqlDataReader r = commande.ExecuteReader();
+            while (r.Read())
+            {
+
+                    int id = r.GetInt32("id");
+                    string username = r.GetString("username");
+                    string password = r.GetString("password");
+
+
+
+
+                    compte = new admin(id,username,password);
+            }
+        }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+}
         public void getAllClients() //charge la liste avec tous les clients
         {
             listeClient.Clear(); //permet de vider la liste avant de la recharger
