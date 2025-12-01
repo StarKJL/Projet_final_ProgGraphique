@@ -15,7 +15,10 @@ namespace ProjetFinal.Classe
         string email;
 
         Random rand = new Random(); 
+<<<<<<< Updated upstream
         public Client(int id, string nom, string adresse, string telephone, string email)
+=======
+>>>>>>> Stashed changes
         {
             this.id = id;
             this.nom = nom;
