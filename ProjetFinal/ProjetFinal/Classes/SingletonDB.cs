@@ -202,6 +202,39 @@ namespace ProjetFinal.Classe
         }
 
 
+          public void getAllEmployeProjet()
+        {
+            listeProjetEmploye.Clear();
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = con.CreateCommand();
+                commande.CommandText = "select nbHrs, salaireCumul, matricule, noProjet,e.nom as nomEmploye,p.titre as titreProjet from employeprojet inner join employe e on e.matricule = employeprojet.matricule inner join projet p on employeprojet.noProjet = p.noProjet";
+
+
+                con.Open();
+                using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
+                {
+                    int nbrHrs = r.GetInt32("nbrHrs");
+                    double salaire = r.GetDouble("salaire");
+                    string matricule = r.GetString("matricule");
+                    string noProjet = r.GetString("noProjet");
+                    string nomEmploye = r.GetString("nomEmploye");
+                    string titreProjet = r.GetString("titreProjet");
+
+
+
+                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,noProjet,nomEmploye,titreProjet);
+                    listeProjetEmploye.Add(projetEmployes);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
         public void getAllEmployeInfoParProjet(string nombre)
         {
             using MySqlConnection con = new MySqlConnection(connectionString);
