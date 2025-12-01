@@ -62,6 +62,7 @@
                                 <FontIcon Glyph="&#xE902;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
+                        <NavigationViewItem Content="Associations" x:Name="iAsso"/>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 

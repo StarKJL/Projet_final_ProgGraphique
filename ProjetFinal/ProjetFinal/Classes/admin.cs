@@ -20,7 +20,7 @@ namespace ProjetFinal.Classes
         {
             this.id = id;
             this.username = username;
-            this.password = Password;
+            this.password = crypter(password,cle);
             this.actif = false;
         }
 

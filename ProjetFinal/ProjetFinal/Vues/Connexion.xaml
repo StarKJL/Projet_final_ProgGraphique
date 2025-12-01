@@ -8,8 +8,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid
-        Background="Orange">
+    <StackPanel
+    Width="400"
+    Height="400"
+    Margin="50"
+    Padding="20"
+    CornerRadius="20"
+    Background="LightBlue">
 
-    </Grid>
+        <TextBox x:Name="tbxName" Header="Nom"/>
+        <TextBlock Foreground="Red" x:Name="tblErrName"/>
+
+        <TextBox x:Name="tbxPass" Header="Mot de passe"/>
+        <TextBlock Foreground="Red" x:Name="tblErrPass"/>
+
+        <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>
+    </StackPanel>
 </Page>

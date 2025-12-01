@@ -91,6 +91,7 @@ namespace ProjetFinal.Vues
                 Client client = cmbbxClient.SelectedItem as Client;
 
                 SingletonDB.getInstance().creeProjet(tbxTitre.Text, DateTime.Now,tbxDesc.Text,Convert.ToDouble(tbxBudget.Text), Convert.ToDouble(tbxSal.Text),client.Id,"En cours");
+                Frame.Navigate(typeof(AfficherProjets));
             }
         }
     }

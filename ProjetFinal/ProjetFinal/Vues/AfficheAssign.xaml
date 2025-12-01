@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ProjetFinal.Vues.AfficheAssign"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjetFinal.Classe"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <GridView
+    x:Name="gvAssign">
+        <GridView.ItemTemplate>
+            <DataTemplate x:DataType="local:EmployeProjet">
+                <StackPanel Orientation="Vertical"
+                        Background="LightBlue"
+                        Margin="5"
+                        Padding="5"
+                        Width="200"
+                        CornerRadius="10">
+                    <TextBlock Text="{x:Bind HeuresTravaillees}"/>
+                    <TextBlock Text="{x:Bind Salaire}"/>
+                    <TextBlock Text="{x:Bind MatriculeId}"/>
+                    <TextBlock Text="{x:Bind ProjetId}"/>
+                </StackPanel>
+            </DataTemplate>
+        </GridView.ItemTemplate>
+
+    </GridView>
+</Page>

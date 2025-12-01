@@ -15,6 +15,7 @@
   <ItemGroup>
     <None Remove="AfficherClients.xaml" />
     <None Remove="AfficherProjets.xaml" />
+    <None Remove="Vues\AfficheAssign.xaml" />
     <None Remove="Vues\AfficherEmployes.xaml" />
     <None Remove="Vues\AjouterProjet.xaml" />
     <None Remove="Vues\AssignerProjet.xaml" />
@@ -47,6 +48,11 @@
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7175" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
     <PackageReference Include="MySql.Data" Version="9.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Vues\AfficheAssign.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Vues\Connexion.xaml">

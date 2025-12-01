@@ -39,7 +39,6 @@ namespace ProjetFinal.Classe
             listeProjet = new ObservableCollection<Projet>();
             listeEmploye = new ObservableCollection<Employe>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
-
         }
 
         public static SingletonDB getInstance()
@@ -84,7 +83,7 @@ namespace ProjetFinal.Classe
             try { 
             using MySqlConnection con = new MySqlConnection(connectionString);
             using MySqlCommand commande = con.CreateCommand();
-            commande.CommandText = "Select * from client";
+            commande.CommandText = "Select * from admin where id = 1";
             con.Open();
             using MySqlDataReader r = commande.ExecuteReader();
             while (r.Read())
@@ -349,7 +348,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into employeprojet values(@nbHrs,@salaire,@matricule,@noProjet) ";
+                commande.CommandText = "insert into employeprojet (nbHrs,salaireCumul,matricule,noProjet) values(@nbHrs,@salaire,@matricule,@noProjet) ";
                 commande.Parameters.AddWithValue("@nbHrs", nbHrs);
                 commande.Parameters.AddWithValue("@salaire", salaire);
                 commande.Parameters.AddWithValue("@matricule", matricule);

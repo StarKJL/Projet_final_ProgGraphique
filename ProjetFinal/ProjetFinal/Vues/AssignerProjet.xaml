@@ -8,8 +8,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid
-        Background="Orange">
+    <StackPanel
+        Width="400"
+        Height="400"
+        Margin="50"
+        Padding="20"
+        CornerRadius="20"
+        Background="LightBlue">
 
-    </Grid>
+        <TextBox x:Name="tbxNbrHrs" Header="Nombre d'heures"/>
+        <TextBlock Foreground="Red" x:Name="tblErrHrs"/>
+
+        <TextBox x:Name="tbxSal" Header="Salaire"/>
+        <TextBlock Foreground="Red" x:Name="tblErrSal"/>
+
+        <ComboBox x:Name="cmbbxProjet"
+              Header="Projet"
+              SelectedIndex="0"
+              DisplayMemberPath="Titre" 
+              Margin="5"/>
+        <TextBlock Foreground="Red" x:Name="tblErrProjet"/>
+
+        <ComboBox x:Name="cmbbxEmploye"
+              Header="Employe"
+              SelectedIndex="0"
+              DisplayMemberPath="Nom" 
+              Margin="5"/>
+        <TextBlock Foreground="Red" x:Name="tblErrEmploye"/>
+
+        <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>
+    </StackPanel>
 </Page>

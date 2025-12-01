@@ -8,53 +8,68 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <GridView
-    x:Name="gvProjets">
-        <GridView.ItemTemplate>
-            <DataTemplate x:DataType="local:Projet">
-                <Grid
-                    Width="400px"
-                    Height="175px"
-                    CornerRadius="20"
-                    Padding="10"
-                    Margin="5"
-                    Background="LightBlue">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <GridView
+            Grid.Row="0"
+            x:Name="gvProjets">
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local:Projet">
+                    <Grid
+                Width="400px"
+                Height="175px"
+                CornerRadius="20"
+                Padding="10"
+                Margin="5"
+                Background="LightBlue">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0">
-                        <Run Text="{x:Bind NoProjet}"/>
-                        <Run Text="|"/>
-                        <Run Text="{x:Bind NomClient}"/>
-                    </TextBlock>
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Right" Text="{x:Bind Statut}"/>
+                        <TextBlock Grid.Row="0">
+                    <Run Text="{x:Bind NoProjet}"/>
+                    <Run Text="|"/>
+                    <Run Text="{x:Bind NomClient}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Row="0" HorizontalAlignment="Right" Text="{x:Bind Statut}"/>
 
-                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="20" Text="{x:Bind Titre}"/>
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" FontSize="20" Text="{x:Bind Titre}"/>
 
-                    <TextBlock Grid.Row="2" Margin="10" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Bind Description}"/>
+                        <TextBlock Grid.Row="2" Margin="10" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{x:Bind Description}"/>
 
-                    <TextBlock Grid.Row="3" Text="Date de départ"/>
-                    <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Budget"/>
-                    <TextBlock Grid.Row="3" HorizontalAlignment="Right" Text="Salaire total"/>
+                        <TextBlock Grid.Row="3" Text="Date de départ"/>
+                        <TextBlock Grid.Row="3" HorizontalAlignment="Center" Text="Budget"/>
+                        <TextBlock Grid.Row="3" HorizontalAlignment="Right" Text="Salaire total"/>
 
-                    <TextBlock Grid.Row="4" Text="{x:Bind DateDebut}"/>
-                    <TextBlock Grid.Row="4" HorizontalAlignment="Center">
-                        <Run Text="{x:Bind Budget}"/>
-                        <Run Text="$"/>
-                    </TextBlock>
-                    <TextBlock Grid.Row="4" HorizontalAlignment="Right">
-                        <Run Text="{x:Bind TotalSalaire}"/>
-                        <Run Text="$"/>
-                    </TextBlock>
-                </Grid>
-            </DataTemplate>
-        </GridView.ItemTemplate>
+                        <TextBlock Grid.Row="4" Text="{x:Bind DateDebut}"/>
+                        <TextBlock Grid.Row="4" HorizontalAlignment="Center">
+                    <Run Text="{x:Bind Budget}"/>
+                    <Run Text="$"/>
+                        </TextBlock>
+                        <TextBlock Grid.Row="4" HorizontalAlignment="Right">
+                    <Run Text="{x:Bind TotalSalaire}"/>
+                    <Run Text="$"/>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
 
-    </GridView>
+        </GridView>
+        <!--
+        <StackPanel>
+            <ComboBox x:Name="cmbbxProjet"
+                      SelectedIndex="0">
+                
+            </ComboBox>
+        </StackPanel> -->
+    </Grid>
+    
 </Page>

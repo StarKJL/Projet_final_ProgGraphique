@@ -54,7 +54,11 @@ namespace ProjetFinal
                     case "iEmployes":
                         mainFrame.Navigate(typeof(AfficherEmployes));
                         break;
+                    case "iAsso":
+                        mainFrame.Navigate(typeof(AfficheAssign));
+                        break;
                     case "iAjoutProjet":
+                        if (SingletonDB.getInstance().
                         mainFrame.Navigate (typeof (AjouterProjet));
                         break;
                     case "iAssignProjet":

@@ -5,6 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using ProjetFinal.Classe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,37 @@ namespace ProjetFinal.Vues
         public Connexion()
         {
             InitializeComponent();
+        }
+
+        private void btnSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            bool valide = true;
+
+            if (string.IsNullOrEmpty(tbxName.Text))
+            {
+                valide=false;
+                tblErrName.Text = "Nom invalide";
+            }
+            else
+            {
+                tblErrName.Text = "";
+            }
+
+            if (string.IsNullOrEmpty(tbxPass.Text))
+            {
+                valide = false;
+                tblErrPass.Text = "Mot de passe invalide";
+            }
+            else
+            {
+                tblErrPass.Text = "";
+            }
+
+            if (valide)
+            {
+                SingletonDB.getInstance().getCompte();
+                SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Text);
+            }
         }
     }
 }
