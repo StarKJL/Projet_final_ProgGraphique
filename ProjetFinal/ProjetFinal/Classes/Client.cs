@@ -18,6 +18,7 @@ namespace ProjetFinal.Classe
 <<<<<<< Updated upstream
         public Client(int id, string nom, string adresse, string telephone, string email)
 =======
+        public Client(int id,string nom, string adresse, string telephone, string email)
 >>>>>>> Stashed changes
         {
             this.id = id;
