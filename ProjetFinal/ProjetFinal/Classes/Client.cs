@@ -17,7 +17,11 @@ namespace ProjetFinal.Classe
         Random rand = new Random(); 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public Client(int id, string nom, string adresse, string telephone, string email)
+=======
+        public Client(int id,string nom, string adresse, string telephone, string email)
+>>>>>>> Stashed changes
 =======
         public Client(int id,string nom, string adresse, string telephone, string email)
 >>>>>>> Stashed changes
