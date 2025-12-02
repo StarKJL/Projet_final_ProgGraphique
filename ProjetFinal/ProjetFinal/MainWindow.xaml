@@ -72,9 +72,6 @@
                         <NavigationViewItem Content="Assigner un projet" x:Name="iAssignProjet" Icon="Attach"/>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
-
-                <NavigationViewItem Content="Connexion" x:Name="iConnexion" Icon="Account">
-                </NavigationViewItem>
             </NavigationView.MenuItems>
         </NavigationView>
     </Grid>

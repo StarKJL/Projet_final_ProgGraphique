@@ -10,11 +10,13 @@
 
     <StackPanel
     Width="400"
-    Height="400"
+    Height="300"
     Margin="50"
     Padding="20"
     CornerRadius="20"
     Background="LightBlue">
+
+        <TextBlock FontSize="25" HorizontalAlignment="Center">Connectez-vous</TextBlock>
 
         <TextBox x:Name="tbxName" Header="Nom"/>
         <TextBlock Foreground="Red" x:Name="tblErrName"/>

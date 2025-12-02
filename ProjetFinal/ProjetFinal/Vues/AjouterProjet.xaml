@@ -9,10 +9,13 @@
     mc:Ignorable="d">
 
     <StackPanel
+        Width="400"
         Margin="50"
         Padding="20"
         CornerRadius="20"
         Background="LightBlue">
+        <TextBlock HorizontalAlignment="Center" FontSize="25">Ajout de projet</TextBlock>
+        
         <TextBox x:Name="tbxTitre" Header="Titre"/>
         <TextBlock Foreground="Red" x:Name="tblErrTitre"/>
 

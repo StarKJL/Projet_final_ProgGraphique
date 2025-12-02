@@ -58,12 +58,25 @@ namespace ProjetFinal
                         mainFrame.Navigate(typeof(AfficheAssign));
                         break;
                     case "iAjoutProjet":
-                        if (SingletonDB.getInstance().
-                        mainFrame.Navigate (typeof (AjouterProjet));
+                        if (SingletonDB.getInstance().Compte.Actif)
+                        {
+                            mainFrame.Navigate(typeof(AjouterProjet));
+                        }
+                        else
+                        {
+                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterProjet));
+                        }
                         break;
                     case "iAssignProjet":
-                        mainFrame.Navigate(typeof(AssignerProjet));
-                        break ;
+                        if (SingletonDB.getInstance().Compte.Actif)
+                        {
+                            mainFrame.Navigate(typeof(AssignerProjet));
+                        }
+                        else
+                        {
+                            mainFrame.Navigate(typeof(Connexion), typeof(AssignerProjet));
+                        }
+                        break;
                     case "iConnexion":
                         mainFrame.Navigate(typeof(Connexion));
                         break;

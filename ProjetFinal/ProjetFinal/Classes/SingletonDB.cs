@@ -18,7 +18,6 @@ namespace ProjetFinal.Classe
         ObservableCollection<Client> listeClient;
         ObservableCollection<Projet> listeProjet;
         ObservableCollection<Employe> listeEmploye;
-
         ObservableCollection<EmployeProjet> listeProjetEmploye;
         admin compte;
 
@@ -30,6 +29,7 @@ namespace ProjetFinal.Classe
         internal ObservableCollection<Projet> ListeProjet { get => listeProjet; }
         internal ObservableCollection<EmployeProjet> ListeProjetEmploye { get => listeProjetEmploye;}
         internal ObservableCollection<Employe> ListeEmploye { get => listeEmploye; }
+        internal admin Compte { get => compte;}
 
 
         private SingletonDB()
@@ -39,6 +39,7 @@ namespace ProjetFinal.Classe
             listeProjet = new ObservableCollection<Projet>();
             listeEmploye = new ObservableCollection<Employe>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
+            getCompte();
         }
 
         public static SingletonDB getInstance()
@@ -48,18 +49,24 @@ namespace ProjetFinal.Classe
             return instance;
         }
 
-        public void connexion(string usernameInput, string passwordInput)
+        public bool connexion(string usernameInput, string passwordInput)
         {
             try
             {
                 if (usernameInput == compte.Username && passwordInput == compte.Password)
                 {
                     compte.Actif = true;
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
             }
             catch (MySqlException ex)
             {
                 Debug.WriteLine(ex.Message);
+                return false;
             }
         }
 
@@ -80,6 +87,7 @@ namespace ProjetFinal.Classe
 
         public void getCompte() //charge la liste avec tous les clients
         {
+            bool estActif = (compte != null) ? compte.Actif : false;
             try { 
             using MySqlConnection con = new MySqlConnection(connectionString);
             using MySqlCommand commande = con.CreateCommand();
@@ -97,6 +105,7 @@ namespace ProjetFinal.Classe
 
 
                     compte = new admin(id,username,password);
+                    compte.Actif = estActif;
             }
         }
             catch (MySqlException ex)

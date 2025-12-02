@@ -24,9 +24,19 @@ namespace ProjetFinal.Vues
     /// </summary>
     public sealed partial class Connexion : Page
     {
+        private Type _pageRetour;
         public Connexion()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            if (e.Parameter is Type destinationPageType)
+            {
+                _pageRetour = destinationPageType;
+            }
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
@@ -56,7 +66,17 @@ namespace ProjetFinal.Vues
             if (valide)
             {
                 SingletonDB.getInstance().getCompte();
-                SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Text);
+                bool connect = SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Text);
+                if (connect)
+                {
+                    Frame.Navigate(_pageRetour);
+                }
+                else
+                {
+                    tblErrName.Text = "Nom ou mot de passe inexistant";
+                    tblErrPass.Text = "Nom ou mot de passe inexistant";
+                }
+                
             }
         }
     }

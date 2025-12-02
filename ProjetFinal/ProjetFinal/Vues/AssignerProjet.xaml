@@ -24,14 +24,14 @@
 
         <ComboBox x:Name="cmbbxProjet"
               Header="Projet"
-              SelectedIndex="0"
+              PlaceholderText="Sélectionnez un projet"
               DisplayMemberPath="Titre" 
               Margin="5"/>
         <TextBlock Foreground="Red" x:Name="tblErrProjet"/>
 
         <ComboBox x:Name="cmbbxEmploye"
               Header="Employe"
-              SelectedIndex="0"
+              PlaceholderText="Sélectionnez un employé"
               DisplayMemberPath="Nom" 
               Margin="5"/>
         <TextBlock Foreground="Red" x:Name="tblErrEmploye"/>
