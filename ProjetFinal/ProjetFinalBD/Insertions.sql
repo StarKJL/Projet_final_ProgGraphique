@@ -13,16 +13,16 @@ insert into client (nom, adresse, telephone, email) values ('Mandy Askwith', '19
 insert into client (nom, adresse, telephone, email) values ('Tallulah Finker', '8414 Upham Lane', '737-555-2738', 'tfinker9@hp.com');
 
 -- Projet
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('BBQ Sauce', '2018-03-07', 'A smoky barbecue sauce, ideal for grilling and dipping.', '4645.45', '5510.81','Terminé',120);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Infrared Space Heater', '2006-01-31', 'Energy-efficient infrared heater for home use.', '2600.04', '2711.91','En cours',931);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Orange Ginger Vinaigrette', '2013-01-29', 'Tangy vinaigrette with orange and ginger flavors.', '5515.24', '7261.24','En cours',134);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Electric Stir Fry Pan', '2017-07-08', 'Large stir fry pan with non-stick surface.', '4961.66', '3500.94','Terminé',375);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Suction Cup Hooks', '2025-08-22', 'Reusable suction cup hooks for hanging items.', '4063.09', '5895.60','Terminé',965);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Almond Milk Yogurt', '2006-03-19', 'Creamy yogurt made from almond milk, vegan-friendly.', '9791.60', '5192.41','En cours',120);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Baby Safety Corner Guards', '2023-06-07', 'Soft corner protectors to keep babies safe at home.', '6213.40', '9434.36','En cours',495);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Cinnamon Ice Cream', '2013-08-11', 'Creamy ice cream with a warm cinnamon flavor, perfect for dessert.', '7908.70', '6761.64','Terminé',820);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Toilet Paper (12 rolls)', '2013-09-29', 'Soft and strong toilet paper for everyday use.', '9869.22', '4089.39','En cours',820);
-insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Hiking Water Bottle with Filter', '2024-11-01', '8oz water bottle with built-in filter for clean drinking water.', '1530.76', '2117.26','En cours',716);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('BBQ Sauce', '2018-03-07', 'A smoky barbecue sauce, ideal for grilling and dipping.', '4645.45', '5510.81','Terminé',166);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Infrared Space Heater', '2006-01-31', 'Energy-efficient infrared heater for home use.', '2600.04', '2711.91','En cours',166);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Orange Ginger Vinaigrette', '2013-01-29', 'Tangy vinaigrette with orange and ginger flavors.', '5515.24', '7261.24','En cours',255);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Electric Stir Fry Pan', '2017-07-08', 'Large stir fry pan with non-stick surface.', '4961.66', '3500.94','Terminé',267);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Suction Cup Hooks', '2025-08-22', 'Reusable suction cup hooks for hanging items.', '4063.09', '5895.60','Terminé',317);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Almond Milk Yogurt', '2006-03-19', 'Creamy yogurt made from almond milk, vegan-friendly.', '9791.60', '5192.41','En cours',359);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Baby Safety Corner Guards', '2023-06-07', 'Soft corner protectors to keep babies safe at home.', '6213.40', '9434.36','En cours',423);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Cinnamon Ice Cream', '2013-08-11', 'Creamy ice cream with a warm cinnamon flavor, perfect for dessert.', '7908.70', '6761.64','Terminé',459);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Toilet Paper (12 rolls)', '2013-09-29', 'Soft and strong toilet paper for everyday use.', '9869.22', '4089.39','En cours',529);
+insert into projet (titre, dateDebut, description, budget, totalSalaire,statut,idClient) values ('Hiking Water Bottle with Filter', '2024-11-01', '8oz water bottle with built-in filter for clean drinking water.', '1530.76', '2117.26','En cours',954);
 
 -- Employe
 insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut) values ('Munns', 'Matthaeus', '1989-01-12', 'mmunns0@flickr.com', '32061 Susan Park', '2025-11-19', '21.04', 'http://dummyimage.com/239x100.png/ff4444/ffffff','Journalier');
@@ -36,6 +36,7 @@ insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, t
 insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut) values ('Bhatia', 'Ardath', '1970-04-23', 'abhatia8@businessweek.com', '31 Hoffman Way', '2021-07-05', '23.03', 'http://dummyimage.com/108x100.png/ff4444/ffffff','Journalier');
 insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut) values ('Orlton', 'Iris', '1973-03-22', 'iorlton9@google.de', '58 Red Cloud Street', '2025-02-04', '17.93', 'http://dummyimage.com/218x100.png/ff4444/ffffff','Permanent');
 
+insert into admin (username, password) VALUES ('admin','secret1234');
 -- EmployeProjet
 /*
  id INT AUTO_INCREMENT PRIMARY KEY ,
