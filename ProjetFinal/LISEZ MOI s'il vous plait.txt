@@ -1,0 +1,15 @@
+Ce projet est divisé en deux parties. Une partie base de données et une partie interface graphique. Les deux 
+sont dans des dossiers différents. ProjetFinalBD pour la base de données et ProjetFinal (tout court) pour le graphique.
+
+String de connection:Server=cours.cegep3r.info;Database=a2025_420335-345ri_greq5;Uid=2486924;Pwd=2486924;
+
+Connection:
+	Username: admin
+	Password: secret1234
+
+
+Pseudos Github
+	Logan Morin:loganmorin
+	KimMai Jennifer Lebel:StarKJL
+
+https://github.com/StarKJL/Projet_final_ProgGraphique

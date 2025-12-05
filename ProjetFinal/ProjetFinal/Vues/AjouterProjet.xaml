@@ -30,7 +30,7 @@
 
         <ComboBox x:Name="cmbbxClient"
                   Header="Client"
-                  SelectedIndex="0"
+                  PlaceholderText="Sélectionnez un client"
                   DisplayMemberPath="Nom" 
                   Margin="5"/>
         <TextBlock Foreground="Red" x:Name="tblErrClient"/>

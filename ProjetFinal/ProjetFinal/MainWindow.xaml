@@ -68,6 +68,8 @@
 
                 <NavigationViewItem Content="Édition" Icon="Edit">
                     <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Ajouter un client" x:Name="iAjoutClient" Icon="Add"/>
+                        <NavigationViewItem Content="Ajouter un employé" x:Name="iAjoutEmploye" Icon="Add"/>
                         <NavigationViewItem Content="Ajouter un projet" x:Name="iAjoutProjet" Icon="Add"/>
                         <NavigationViewItem Content="Assigner un projet" x:Name="iAssignProjet" Icon="Attach"/>
                     </NavigationViewItem.MenuItems>

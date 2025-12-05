@@ -77,6 +77,26 @@ namespace ProjetFinal
                             mainFrame.Navigate(typeof(Connexion), typeof(AssignerProjet));
                         }
                         break;
+                    case "iAjoutClient":
+                        if (SingletonDB.getInstance().Compte.Actif)
+                        {
+                            mainFrame.Navigate(typeof(AjouterClient));
+                        }
+                        else
+                        {
+                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterClient));
+                        }
+                        break;
+                    case "iAjoutEmploye":
+                        if (SingletonDB.getInstance().Compte.Actif)
+                        {
+                            mainFrame.Navigate(typeof(AjouterEmploye));
+                        }
+                        else
+                        {
+                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterEmploye));
+                        }
+                        break;
                     case "iConnexion":
                         mainFrame.Navigate(typeof(Connexion));
                         break;

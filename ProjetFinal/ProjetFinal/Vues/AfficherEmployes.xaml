@@ -13,8 +13,8 @@
         <GridView.ItemTemplate> 
             <DataTemplate x:DataType="local:Employe">
                 <StackPanel
-                Width="200px"
-                Height="300px"
+                Width="270px"
+                Height="350px"
                 CornerRadius="20"
                 Padding="10"
                 Margin="5"
@@ -23,17 +23,38 @@
 
                     <Image Source="{x:Bind PhotoIdentite}"
                            HorizontalAlignment="Left"
-                           Width="100px"/>
+                           Height="100px"/>
                     <TextBlock>
-                        <Run Text="{x:Bind Prenom}"/>
-                        <Run Text="{x:Bind Nom}"/>
+                        <Run Text="Nom:          "/>
+                        <Run Text="{x:Bind Prenom, Mode=OneWay}"/>
+                        <Run Text="{x:Bind Nom, Mode=OneWay}"/>
                     </TextBlock>
-                    <TextBlock Text="{x:Bind Email}"/>
-                    <TextBlock Text="{x:Bind DateNaissance}"/>
-                    <TextBlock Text="{x:Bind Adresse}"/>
+                    <TextBlock>
+                        <Run Text="Email:         "/>
+                        <Run Text="{x:Bind Email, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Naissance: "/>
+                        <Run Text="{x:Bind DateNaissance, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Adresse:     "/>
+                        <Run Text="{x:Bind Adresse, Mode=OneWay}"/>
+                    </TextBlock>
                     <TextBlock Margin="10"/>
-                    <TextBlock Text="{x:Bind TauxHoraire}"/>
-                    <TextBlock Text="{x:Bind Statut}"/>
+                    <TextBlock>
+                        <Run Text="Taux:           "/>
+                        <Run Text="{x:Bind TauxHoraire, Mode=OneWay}"/>
+                        <Run Text="$"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Embauche: "/>
+                        <Run Text="{x:Bind DateEmbauche, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Statut:        "/>
+                        <Run Text="{x:Bind Statut, Mode=OneWay}"/>
+                    </TextBlock>
 
 
                 </StackPanel>

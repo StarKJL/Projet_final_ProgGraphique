@@ -10,11 +10,12 @@
 
     <StackPanel
         Width="400"
-        Height="400"
+        Height="500"
         Margin="50"
         Padding="20"
         CornerRadius="20"
         Background="LightBlue">
+        <TextBlock HorizontalAlignment="Center" FontSize="25">Assignation de projet</TextBlock>
 
         <TextBox x:Name="tbxNbrHrs" Header="Nombre d'heures"/>
         <TextBlock Foreground="Red" x:Name="tblErrHrs"/>

@@ -16,12 +16,24 @@
                             Background="LightBlue"
                             Margin="5"
                             Padding="5"
-                            Width="200"
+                            Width="300"
                             CornerRadius="10">
-                    <TextBlock Text="{x:Bind Nom}"/>
-                    <TextBlock Text="{x:Bind Adresse}"/>
-                    <TextBlock Text="{x:Bind Email}"/>
-                    <TextBlock Text="{x:Bind Telephone}"/>
+                    <TextBlock>
+                        <Run Text="Nom:      "/>
+                        <Run Text="{x:Bind Nom, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Adresse: "/>
+                        <Run Text="{x:Bind Adresse, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Email:     "/>
+                        <Run Text="{x:Bind Email, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock>
+                        <Run Text="Tel:         "/>
+                        <Run Text="{x:Bind Telephone, Mode=OneWay}"/>
+                    </TextBlock>
                 </StackPanel>
             </DataTemplate>
         </GridView.ItemTemplate>

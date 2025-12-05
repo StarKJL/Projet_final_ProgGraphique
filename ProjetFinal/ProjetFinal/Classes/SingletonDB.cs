@@ -387,7 +387,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into client values(@nom,@adresse,@telephone,@email) ";
+                commande.CommandText = "insert into client (nom,adresse,telephone,email) values(@nom,@adresse,@telephone,@email) ";
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@adresse", adresse);
                 commande.Parameters.AddWithValue("@telephone", telephone);
@@ -401,7 +401,7 @@ namespace ProjetFinal.Classe
                 commande2.Connection = con;
                 commande2.CommandText = "select LAST_INSERT_ID() ";
                 var res = commande2.ExecuteScalar();
-                getAllProjets();
+                getAllClients();
             }
             catch (MySqlException ex)
             {
@@ -417,7 +417,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "insert into employe values(@nom,@prenom,@dateNaissance,@email,@adresse,@dateEmbauche,@tauxHoraire,@photoId,@statut) ";
+                commande.CommandText = "insert into employe (nom,prenom,dateNaissance,email,adresse,dateEmbauche,tauxHoraire,photoId,statut) values(@nom,@prenom,@dateNaissance,@email,@adresse,@dateEmbauche,@tauxHoraire,@photoId,@statut) ";
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@prenom", prenom);
                 commande.Parameters.AddWithValue("@dateNaissance", dateNaissance);
@@ -437,7 +437,7 @@ namespace ProjetFinal.Classe
                 commande2.Connection = con;
                 commande2.CommandText = "select LAST_INSERT_ID() ";
                 var res = commande2.ExecuteScalar();
-                getAllProjets();
+                getAllEmploye();
             }
             catch (MySqlException ex)
             {

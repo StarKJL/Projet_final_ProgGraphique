@@ -12,10 +12,12 @@ namespace ProjetFinal.Classe
         string matricule;
         string nom;
         string prenom;
-        DateTime dateNaissance;
+        DateTime dateNaissanceDATE;
+        string dateNaissance;
         string email;
         string adresse;
-        DateTime dateEmbauche;
+        DateTime dateEmbaucheDATE;
+        string dateEmbauche;
         double tauxHoraire;
         string photoIdentite;
         string statut;
@@ -27,11 +29,11 @@ namespace ProjetFinal.Classe
             this.matricule = matricule;
             this.nom = nom;
             this.prenom = prenom;
-            this.dateNaissance = dateNaissance;
+            this.dateNaissance = dateNaissance.ToString("d");
             
             this.email = email;
             this.adresse = adresse;
-            this.dateEmbauche = dateEmbauche;
+            this.dateEmbauche = dateEmbauche.ToString("d");
             this.tauxHoraire = tauxHoraire;
             this.photoIdentite = photoIdentite;
             this.statut = statut;
@@ -40,17 +42,19 @@ namespace ProjetFinal.Classe
         public string Matricule { get => matricule; set => matricule = value; }
         public string Nom { get => nom; set => nom = value; }
         public string Prenom { get => prenom; set => prenom = value; }
-        public DateTime DateNaissance { get => dateNaissance; set => dateNaissance = value; }
+        public string DateNaissance { get => dateNaissance; set => dateNaissance = value; }
         public string Email { get => email; set => email = value; }
         public string Adresse { get => adresse; set => adresse = value; }
-        public DateTime DateEmbauche { get => dateEmbauche; set => dateEmbauche = value; }
+        public string DateEmbauche { get => dateEmbauche; set => dateEmbauche = value; }
         public double TauxHoraire { get => tauxHoraire; set => tauxHoraire = value; }
         public string PhotoIdentite { get => photoIdentite; set => photoIdentite = value; }
         public string Statut { get => statut; set => statut = value; }
+        public DateTime DateNaissanceDATE { get => dateNaissanceDATE; set => dateNaissanceDATE = value; }
+        public DateTime DateEmbaucheDATE { get => dateEmbaucheDATE; set => dateEmbaucheDATE = value; }
 
         public override string ToString()
         {
-            return $"Matricule: {matricule}, Nom: {nom}, Prenom: {prenom}, Date de Naissance: {dateNaissance.ToShortDateString()}, Email: {email}, Adresse: {adresse}, Date d'Embauche: {dateEmbauche.ToShortDateString()}, Taux Horaire: {tauxHoraire}, Statut: {statut}";
+            return $"Matricule: {matricule}, Nom: {nom}, Prenom: {prenom}, Date de Naissance: {dateNaissance}, Email: {email}, Adresse: {adresse}, Date d'Embauche: {dateEmbauche}, Taux Horaire: {tauxHoraire}, Statut: {statut}";
         }
     }
 }
