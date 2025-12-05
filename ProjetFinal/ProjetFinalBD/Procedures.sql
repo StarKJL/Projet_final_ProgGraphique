@@ -12,7 +12,7 @@ end //
 DELIMITER ;
 
 -- 2
-DROP PROCEDURE client_par_id;
+DROP PROCEDURE IF EXISTS client_par_id;
 DELIMITER //
 CREATE PROCEDURE client_par_id(IN _id INT)
 BEGIN
@@ -23,7 +23,7 @@ END //
 DELIMITER ;
 
 -- 3
-DROP PROCEDURE projet_par_no;
+DROP PROCEDURE IF EXISTS projet_par_no;
 DELIMITER //
 CREATE PROCEDURE projet_par_no(IN _no VARCHAR(12))
 BEGIN
@@ -34,7 +34,7 @@ end //
 DELIMITER ;
 
 -- 4
-DROP PROCEDURE projet_par_idClient;
+DROP PROCEDURE IF EXISTS projet_par_idClient;
 DELIMITER //
 CREATE PROCEDURE projet_par_idClient(IN _idClient INT)
 BEGIN
@@ -45,7 +45,7 @@ end //
 DELIMITER ;
 
 -- 5
-DROP PROCEDURE employes_de_projet;
+DROP PROCEDURE IF EXISTS employes_de_projet;
 DELIMITER //
 CREATE PROCEDURE employes_de_projet(IN _no VARCHAR(12))
 BEGIN

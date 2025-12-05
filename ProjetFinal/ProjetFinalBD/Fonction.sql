@@ -1,5 +1,7 @@
+-- Kim Mai Jennifer Lebel
 /*Fonction*/
 
+DROP FUNCTION IF EXISTS calculSalaire;
 DELIMITER //
 CREATE FUNCTION calculSalaire(idEmploye VARCHAR(10)) RETURNS INT
 BEGIN
@@ -9,7 +11,7 @@ BEGIN
 END//
 DELIMITER ;
 
-
+DROP FUNCTION IF EXISTS compteEmployeParProjet;
 DELIMITER //
 CREATE FUNCTION compteEmployeParProjet(idProjet VARCHAR(12)) RETURNS INT
 BEGIN
@@ -20,7 +22,7 @@ END//
 DELIMITER ;
 
 
-
+DROP FUNCTION IF EXISTS EmployeImplication;
 DELIMITER //
 CREATE FUNCTION EmployeImplication(idemploye VARCHAR(10)) RETURNS INT
 BEGIN
@@ -30,7 +32,7 @@ BEGIN
 END//
 DELIMITER ;
 
-
+DROP FUNCTION IF EXISTS budgetProjet;
 DELIMITER //
 CREATE FUNCTION budgetProjet(idProjet VARCHAR(12)) RETURNS DOUBLE
 BEGIN
@@ -40,7 +42,7 @@ BEGIN
 END//
 DELIMITER ;
 
-
+DROP FUNCTION IF EXISTS totalDesSalaires;
 DELIMITER //
 CREATE FUNCTION totalDesSalaires(idProjet VARCHAR(12)) RETURNS DOUBLE
 BEGIN
@@ -49,6 +51,3 @@ BEGIN
  RETURN nb;
 END//
 DELIMITER ;
-
-
-
