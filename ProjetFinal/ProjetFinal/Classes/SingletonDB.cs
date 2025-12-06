@@ -1,6 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.WindowsAppSDK.Runtime.Packages;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 using ProjetFinal.Classes;
 using System;
 using System.Collections.Generic;
@@ -539,9 +540,123 @@ namespace ProjetFinal.Classe
         }
 
 
+        //Modifier
+        public void modifierEmploye(string matricule,string nom, string prenom, DateTime dateNaissance, string email, string adresse, DateTime dateEmbauche, double tauxHoraire, string photoId, string statut)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update employe set nom=@nom,prenom=@prenom,dateNaissance=@dateNaissance,email = @email,adresse=@adresse,dateEmbauche=@dateEmbauche,tauxHoraire=@tauxHoraire,photoId=@photoId,statut=@statut where matricule = @matricule";
+                commande.Parameters.AddWithValue("@matricule", matricule);
+                commande.Parameters.AddWithValue("@nom", nom);
+                commande.Parameters.AddWithValue("@prenom", prenom);
+                commande.Parameters.AddWithValue("@dateNaissance", dateNaissance);
+                commande.Parameters.AddWithValue("@email", email);
+                commande.Parameters.AddWithValue("@adresse", adresse);
+                commande.Parameters.AddWithValue("@dateEmbauche", dateEmbauche);
+                commande.Parameters.AddWithValue("@tauxHoraire", tauxHoraire);
+                commande.Parameters.AddWithValue("@photoId", photoId);
+                commande.Parameters.AddWithValue("@statut", statut);
 
 
 
+
+                con.Open();
+               
+                getAllEmploye();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void modifierClient(int id,string nom, string adresse, string telephone, string email)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update client set nom = @nom,email = @email,adresse = @adresse, telephone=@telephone where id = @id";
+
+                commande.Parameters.AddWithValue("@id", id);
+
+                commande.Parameters.AddWithValue("@nom", nom);
+                commande.Parameters.AddWithValue("@adresse", adresse);
+                commande.Parameters.AddWithValue("@telephone", telephone);
+                commande.Parameters.AddWithValue("@email", email);
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+               
+                getAllClients();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void ModifierassociationEmployeAProjet(int nbHrs, double salaire, string matricule, string noProjet)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update employeprojet set nbHrs = @nbHrs,salaire = @salaire where noProjet = @noProjet and matricule=@matricule";
+                commande.Parameters.AddWithValue("@nbHrs", nbHrs);
+                commande.Parameters.AddWithValue("@salaire", salaire);
+                commande.Parameters.AddWithValue("@matricule", matricule);
+                commande.Parameters.AddWithValue("@noProjet", noProjet);
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+              
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void modifieProjet(string noProjet,string titre, DateTime dateDebut, string description, double budget, double totalSalaire, int idClient, string statut)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update projet set titre = @titre,dateDebut = @dateDebut,description=@description,budget=@budget,totalSalaire=@totalSalaire,idClient=@idClient,statut=@statut where noProjet = @noProjet";
+                commande.Parameters.AddWithValue("@titre", titre);
+                commande.Parameters.AddWithValue("@dateDebut", dateDebut);
+                commande.Parameters.AddWithValue("@description", description);
+                commande.Parameters.AddWithValue("@budget", budget);
+                commande.Parameters.AddWithValue("@totalSalaire", totalSalaire);
+                commande.Parameters.AddWithValue("@idClient", idClient);
+                commande.Parameters.AddWithValue("@statut", statut);
+                commande.Parameters.AddWithValue("@noProjet", noProjet);
+
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+               
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
 
     }
 }
