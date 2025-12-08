@@ -30,8 +30,6 @@ namespace ProjetFinal.Vues
         public ModifEmploye()
         {
             InitializeComponent();
-            dtpkrBirth.MaxYear=DateTimeOffset.Now.AddYears(-18);
-            dtpkrHire.MaxYear = DateTimeOffset.Now;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,8 +44,6 @@ namespace ProjetFinal.Vues
                 tbxNom.Text = _employeModif.Nom;
                 tbxMail.Text = _employeModif.Email;
                 tbxAdr.Text = _employeModif.Adresse;
-                dtpkrBirth.SelectedDate = DateTime.Parse(_employeModif.DateNaissance);
-                dtpkrHire.SelectedDate = DateTime.Parse(_employeModif.DateEmbauche);
                 tbxTaux.Text = _employeModif.TauxHoraire.ToString();
                 tbxPhoto.Text = _employeModif.PhotoIdentite;
                 cmbbxStatut.SelectedItem = _employeModif.Statut;
@@ -99,26 +95,6 @@ namespace ProjetFinal.Vues
                 tblErrAdr.Text = "";
             }
 
-            if(dtpkrBirth.SelectedDate == null)
-            {
-                valide = false;
-                tblErrBirth.Text = "Date de naissance invalide";
-            }
-            else
-            {
-                tblErrBirth.Text = "";
-            }
-
-            if (dtpkrHire.SelectedDate == null)
-            {
-                valide = false;
-                tblErrHire.Text = "Date d'embauche invalide";
-            }
-            else
-            {
-                tblErrHire.Text = "";
-            }
-
             if(string.IsNullOrEmpty(tbxTaux.Text) || !Double.TryParse(tbxTaux.Text, out double nbr))
             {
                 valide = false;
@@ -151,8 +127,8 @@ namespace ProjetFinal.Vues
 
             if (valide)
             {
-                DateTime naissance = new DateTime(dtpkrBirth.Date.Year, dtpkrBirth.Date.Month, dtpkrBirth.Date.Day);
-                DateTime embauche = new DateTime(dtpkrHire.Date.Year, dtpkrHire.Date.Month, dtpkrHire.Date.Day);
+                DateTime naissance = DateTime.Parse(_employeModif.DateNaissance);
+                DateTime embauche = DateTime.Parse(_employeModif.DateEmbauche);
                 SingletonDB.getInstance().modifierEmploye(_employeModif.Matricule,tbxNom.Text, tbxPre.Text, naissance, tbxMail.Text, tbxAdr.Text, embauche, Convert.ToDouble(tbxTaux.Text), tbxPhoto.Text, cmbbxStatut.SelectedValue.ToString());
                 Frame.Navigate(typeof(AfficherEmployes));
             }

@@ -218,23 +218,25 @@ namespace ProjetFinal.Classe
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = con.CreateCommand();
-                commande.CommandText = "select nbHrs, salaireCumul, matricule, noProjet,e.nom as nomEmploye,p.titre as titreProjet from employeprojet inner join employe e on e.matricule = employeprojet.matricule inner join projet p on employeprojet.noProjet = p.noProjet";
+                commande.CommandText = "select id, nbHrs, salaireCumul, ep.matricule, ep.noProjet,e.prenom as prenomEmploye,e.nom as nomEmploye,p.titre as titreProjet from employeprojet ep inner join employe e on e.matricule = ep.matricule inner join projet p on ep.noProjet = p.noProjet";
 
 
                 con.Open();
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
-                    int nbrHrs = r.GetInt32("nbrHrs");
-                    double salaire = r.GetDouble("salaire");
+                    int id = r.GetInt32("id");
+                    int nbrHrs = r.GetInt32("nbHrs");
+                    double salaire = r.GetDouble("salaireCumul");
                     string matricule = r.GetString("matricule");
                     string noProjet = r.GetString("noProjet");
+                    string prenomEmploye = r.GetString("prenomEmploye");
                     string nomEmploye = r.GetString("nomEmploye");
                     string titreProjet = r.GetString("titreProjet");
 
 
 
-                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,noProjet,nomEmploye,titreProjet);
+                    EmployeProjet projetEmployes = new EmployeProjet(id, nbrHrs,salaire,matricule,noProjet, prenomEmploye,nomEmploye, titreProjet);
                     listeProjetEmploye.Add(projetEmployes);
                 }
             }
@@ -294,23 +296,25 @@ namespace ProjetFinal.Classe
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = con.CreateCommand();
-                commande.CommandText = "select nbHrs, salaireCumul, matricule, noProjet,e.nom as nomEmploye,p.titre as titreProjet from employeprojet inner join employe e on e.matricule = employeprojet.matricule inner join projet p on employeprojet.noProjet = p.noProjet";
+                commande.CommandText = "select id, nbHrs, salaireCumul, ep.matricule, ep.noProjet,e.prenom as prenomEmploye,e.nom as nomEmploye,p.titre as titreProjet from employeprojet ep inner join employe e on e.matricule = ep.matricule inner join projet p on ep.noProjet = p.noProjet";
                 commande.Parameters.AddWithValue("@noProjet", $"{no_Projet}%");
 
                 con.Open();
                 using MySqlDataReader r = commande.ExecuteReader();
                 while (r.Read())
                 {
-                    int nbrHrs = r.GetInt32("nbrHrs");
+                    int id = r.GetInt32("id");
+                    int nbrHrs = r.GetInt32("nbHrs");
                     double salaire = r.GetDouble("salaire");
                     string matricule = r.GetString("matricule");
                     string noProjet = r.GetString("noProjet");
+                    string prenomEmploye = r.GetString("prenomEmploye");
                     string nomEmploye = r.GetString("nomEmploye");
                     string titreProjet = r.GetString("titreProjet");
 
 
 
-                    EmployeProjet projetEmployes = new EmployeProjet(nbrHrs,salaire,matricule,no_Projet,nomEmploye,titreProjet);
+                    EmployeProjet projetEmployes = new EmployeProjet(id, nbrHrs,salaire,matricule,no_Projet,prenomEmploye,nomEmploye,titreProjet);
                     listeProjetEmploye.Add(projetEmployes);
                 }
             }
@@ -522,6 +526,26 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public void supprimerEmployeProjet(int id)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "delete from employeprojet where id = @id";
+                commande.Parameters.AddWithValue("@id", id);
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+                getAllEmployeProjet();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
         public List<Projet> exporter()
         {
             //var picker = new Windows.Storage.Pickers.FileSavePicker();
@@ -564,7 +588,8 @@ namespace ProjetFinal.Classe
 
 
                 con.Open();
-               
+                int i = commande.ExecuteNonQuery();
+
                 getAllEmploye();
             }
             catch (MySqlException ex)
@@ -583,7 +608,6 @@ namespace ProjetFinal.Classe
                 commande.CommandText = "update client set nom = @nom,email = @email,adresse = @adresse, telephone=@telephone where id = @id";
 
                 commande.Parameters.AddWithValue("@id", id);
-
                 commande.Parameters.AddWithValue("@nom", nom);
                 commande.Parameters.AddWithValue("@adresse", adresse);
                 commande.Parameters.AddWithValue("@telephone", telephone);

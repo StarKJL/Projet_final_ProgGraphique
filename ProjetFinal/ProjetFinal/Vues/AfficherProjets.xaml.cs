@@ -48,5 +48,36 @@ namespace ProjetFinal
             }
             
         }
+
+        private async void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (!SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(Connexion), typeof(AfficherProjets));
+                return;
+            }
+            ContentDialog dialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Suppression de projet",
+                Content = "Êtes-vous sûr de vouloir supprimer ce projet?",
+                PrimaryButtonText = "Supprimer",
+                CloseButtonText = "Annuler",
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                Button btn = sender as Button;
+                Projet projet = btn.DataContext as Projet;
+                if (projet != null)
+                {
+                    SingletonDB.getInstance().supprimerProjet(projet.NoProjet);
+                }
+
+            }
+        }
     }
 }

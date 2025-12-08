@@ -62,15 +62,23 @@
                                 <FontIcon Glyph="&#xE902;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
-                        <NavigationViewItem Content="Associations" x:Name="iAsso"/>
+                        <NavigationViewItem Content="Associations" x:Name="iAsso" Icon="Attach"/>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
 
                 <NavigationViewItem Content="Édition" Icon="Edit">
                     <NavigationViewItem.MenuItems>
-                        <NavigationViewItem Content="Ajouter un client" x:Name="iAjoutClient" Icon="Add"/>
-                        <NavigationViewItem Content="Ajouter un employé" x:Name="iAjoutEmploye" Icon="Add"/>
-                        <NavigationViewItem Content="Ajouter un projet" x:Name="iAjoutProjet" Icon="Add"/>
+                        <NavigationViewItem Content="Ajouter un projet" x:Name="iAjoutProjet">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE838;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Ajouter un client" x:Name="iAjoutClient" Icon="People"/>
+                        <NavigationViewItem Content="Ajouter un employé" x:Name="iAjoutEmploye">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE902;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
                         <NavigationViewItem Content="Assigner un projet" x:Name="iAssignProjet" Icon="Attach"/>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>

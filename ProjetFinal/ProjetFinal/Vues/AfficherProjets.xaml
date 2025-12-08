@@ -20,7 +20,7 @@
                 <DataTemplate x:DataType="local:Projet">
                     <Grid
                 Width="400px"
-                Height="175px"
+                Height="200px"
                 CornerRadius="20"
                 Padding="10"
                 Margin="5"
@@ -60,6 +60,7 @@
                         </TextBlock>
 
                         <Button Grid.Row="5" x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                        <Button Grid.Row="5" HorizontalAlignment="Right" x:Name="btnDel" Click="btnDel_Click">Supprimer</Button>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>

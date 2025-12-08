@@ -29,12 +29,6 @@
             <TextBox x:Name="tbxAdr" Header="Adresse"/>
             <TextBlock Foreground="Red" x:Name="tblErrAdr"/>
 
-            <DatePicker x:Name="dtpkrBirth" Header="Date de naissance"/>
-            <TextBlock Foreground="Red" x:Name="tblErrBirth"/>
-
-            <DatePicker x:Name="dtpkrHire" Header="Date d'embauche"/>
-            <TextBlock Foreground="Red" x:Name="tblErrHire"/>
-
             <TextBox x:Name="tbxTaux" Header="Taux horaire"/>
             <TextBlock Foreground="Red" x:Name="tblErrTaux"/>
 

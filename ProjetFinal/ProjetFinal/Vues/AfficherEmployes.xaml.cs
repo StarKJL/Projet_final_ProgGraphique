@@ -46,5 +46,36 @@ namespace ProjetFinal.Vues
                 Frame.Navigate(typeof(Connexion), parametresRetour);
             }
         }
+
+        private async void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (!SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(Connexion), typeof(AfficherEmployes));
+                return;
+            }
+            ContentDialog dialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Suppression d'employé",
+                Content = "Êtes-vous sûr de vouloir supprimer cet employé?",
+                PrimaryButtonText = "Supprimer",
+                CloseButtonText = "Annuler",
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                Button btn = sender as Button;
+                Employe employe = btn.DataContext as Employe;
+                if (employe != null)
+                {
+                    SingletonDB.getInstance().supprimerEmploye(employe.Matricule);
+                }
+
+            }
+        }
     }
 }

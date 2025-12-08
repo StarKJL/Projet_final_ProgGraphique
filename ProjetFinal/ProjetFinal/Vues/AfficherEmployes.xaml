@@ -56,7 +56,10 @@
                         <Run Text="{x:Bind Statut, Mode=OneWay}"/>
                     </TextBlock>
 
-                    <Button x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                    <Grid>
+                        <Button x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                        <Button x:Name="btnDel" Click="btnDel_Click" HorizontalAlignment="Right">Supprimer</Button>
+                    </Grid>
                 </StackPanel>
             </DataTemplate>
         </GridView.ItemTemplate>
