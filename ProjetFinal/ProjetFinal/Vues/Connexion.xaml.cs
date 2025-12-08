@@ -25,6 +25,7 @@ namespace ProjetFinal.Vues
     public sealed partial class Connexion : Page
     {
         private Type _pageRetour;
+        private object _modif;
         public Connexion()
         {
             InitializeComponent();
@@ -33,9 +34,22 @@ namespace ProjetFinal.Vues
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            if (e.Parameter is Type destinationPageType)
+            if (e.Parameter is object[] parameters && parameters.Length >= 1)
             {
+                // Le premier élément est le Type de la page de retour
+                _pageRetour = parameters[0] as Type;
+
+                // Si un deuxième élément existe (votre Projet), nous le stockons.
+                if (parameters.Length >= 2)
+                {
+                    _modif = parameters[1];
+                }
+            }
+            else if (e.Parameter is Type destinationPageType)
+            {
+                // Cas de base où seul le Type est passé
                 _pageRetour = destinationPageType;
+                _modif = null;
             }
         }
 
@@ -69,7 +83,14 @@ namespace ProjetFinal.Vues
                 bool connect = SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Text);
                 if (connect)
                 {
-                    Frame.Navigate(_pageRetour);
+                    if(_modif != null)
+                    {
+                        Frame.Navigate(_pageRetour, _modif);
+                    }
+                    else
+                    {
+                        Frame.Navigate(_pageRetour);
+                    }
                 }
                 else
                 {

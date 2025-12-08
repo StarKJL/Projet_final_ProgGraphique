@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ProjetFinal.Vues.ModifProjet"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjetFinal.Vues"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel
+            Width="400"
+            Margin="50"
+            Padding="20"
+            CornerRadius="20"
+            Background="LightBlue">
+            <TextBlock HorizontalAlignment="Center" FontSize="25">Modification de projet</TextBlock>
+
+            <TextBox x:Name="tbxTitre" Header="Titre"/>
+            <TextBlock Foreground="Red" x:Name="tblErrTitre"/>
+
+            <TextBox x:Name="tbxDesc" Header="Description"/>
+            <TextBlock Foreground="Red" x:Name="tblErrDesc"/>
+
+            <TextBox x:Name="tbxBudget" Header="Budget"/>
+            <TextBlock Foreground="Red" x:Name="tblErrBudget"/>
+
+            <TextBox x:Name="tbxSal" Header="Salaire total des employés"/>
+            <TextBlock Foreground="Red" x:Name="tblErrSal"/>
+
+            <ComboBox x:Name="cmbbxClient"
+                      Header="Client"
+                      PlaceholderText="Sélectionnez un client"
+                      DisplayMemberPath="Nom" 
+                      Margin="5"/>
+            <TextBlock Foreground="Red" x:Name="tblErrClient"/>
+
+            <ComboBox x:Name="cmbbxStatut"
+              Header="Statut"
+              PlaceholderText="Sélectionnez un statut"
+              Margin="5">
+                <x:String>En cours</x:String>
+                <x:String>Terminé</x:String>
+            </ComboBox>
+            <TextBlock Foreground="Red" x:Name="tblErrStatut"/>
+
+            <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

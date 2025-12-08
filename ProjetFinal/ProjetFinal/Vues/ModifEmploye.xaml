@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ProjetFinal.Vues.ModifEmploye"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjetFinal.Vues"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer>
+        <StackPanel
+            Width="400"
+            Margin="50"
+            Padding="20"
+            CornerRadius="20"
+            Background="LightBlue">
+            <TextBlock HorizontalAlignment="Center" FontSize="25">Modification d'employé</TextBlock>
+
+            <TextBox x:Name="tbxPre" Header="Prénom"/>
+            <TextBlock Foreground="Red" x:Name="tblErrPre"/>
+
+            <TextBox x:Name="tbxNom" Header="Nom de famille"/>
+            <TextBlock Foreground="Red" x:Name="tblErrNom"/>
+
+            <TextBox x:Name="tbxMail" Header="Email"/>
+            <TextBlock Foreground="Red" x:Name="tblErrMail"/>
+
+            <TextBox x:Name="tbxAdr" Header="Adresse"/>
+            <TextBlock Foreground="Red" x:Name="tblErrAdr"/>
+
+            <DatePicker x:Name="dtpkrBirth" Header="Date de naissance"/>
+            <TextBlock Foreground="Red" x:Name="tblErrBirth"/>
+
+            <DatePicker x:Name="dtpkrHire" Header="Date d'embauche"/>
+            <TextBlock Foreground="Red" x:Name="tblErrHire"/>
+
+            <TextBox x:Name="tbxTaux" Header="Taux horaire"/>
+            <TextBlock Foreground="Red" x:Name="tblErrTaux"/>
+
+            <TextBox x:Name="tbxPhoto" Header="Url de photo"/>
+            <TextBlock Foreground="Red" x:Name="tblErrPhoto"/>
+
+            <ComboBox x:Name="cmbbxStatut"
+              Header="Statut"
+              PlaceholderText="Sélectionnez un statut"
+              Margin="5">
+                <x:String>Permanent</x:String>
+                <x:String>Journalier</x:String>
+            </ComboBox>
+            <TextBlock Foreground="Red" x:Name="tblErrStatut"/>
+        
+            <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

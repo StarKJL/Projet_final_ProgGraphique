@@ -58,6 +58,8 @@
                     <Run Text="{x:Bind TotalSalaire}"/>
                     <Run Text="$"/>
                         </TextBlock>
+
+                        <Button Grid.Row="5" x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>

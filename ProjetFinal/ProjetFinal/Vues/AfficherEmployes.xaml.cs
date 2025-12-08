@@ -30,5 +30,21 @@ namespace ProjetFinal.Vues
             gvEmployes.ItemsSource = SingletonDB.getInstance().ListeEmploye;
             SingletonDB.getInstance().getAllEmploye();
         }
+
+        private void btnModif_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            Employe employeModif = btn.DataContext as Employe;
+            if (SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(ModifEmploye), employeModif);
+            }
+            else
+            {
+                object[] parametresRetour = new object[] { typeof(ModifEmploye), employeModif };
+                Frame.Navigate(typeof(Connexion), parametresRetour);
+            }
+        }
     }
 }

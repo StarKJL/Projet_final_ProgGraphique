@@ -52,6 +52,9 @@
     <PackageReference Include="MySql.Data" Version="9.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Vues\ModifEmploye.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Vues\AjouterEmploye.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -64,6 +67,9 @@
   <ItemGroup>
     <Page Update="Vues\AfficheAssign.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Vues\ModifProjet.xaml">
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

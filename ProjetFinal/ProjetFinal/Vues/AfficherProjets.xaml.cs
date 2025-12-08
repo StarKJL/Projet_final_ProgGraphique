@@ -6,6 +6,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using ProjetFinal.Classe;
+using ProjetFinal.Vues;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +30,23 @@ namespace ProjetFinal
             InitializeComponent();
             gvProjets.ItemsSource = SingletonDB.getInstance().ListeProjet;
             SingletonDB.getInstance().getAllProjets();
+        }
+
+        private void btnModif_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn  = sender as Button;
+
+            Projet projetModif = btn.DataContext as Projet;
+            if (SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(ModifProjet), projetModif);
+            }
+            else
+            {
+                object[] parametresRetour = new object[] { typeof(ModifProjet), projetModif };
+                Frame.Navigate(typeof(Connexion), parametresRetour);
+            }
+            
         }
     }
 }
