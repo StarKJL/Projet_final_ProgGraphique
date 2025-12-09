@@ -54,10 +54,35 @@ namespace ProjetFinal.Classe
         {
             try
             {
-                if (usernameInput == compte.Username && passwordInput == compte.Password)
+                string username="";
+                string password="";
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "select * from admin where username=@username and password = SHA2(@password, 256)";
+                commande.Parameters.AddWithValue("@username", usernameInput);
+                commande.Parameters.AddWithValue("@password", passwordInput);
+                con.Open();
+                using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
                 {
-                    compte.Actif = true;
-                    return true;
+
+                    int id = r.GetInt32("id");
+                    username = r.GetString("username");
+                    password = r.GetString("password");
+                }
+                if (username != null || password != null)
+                {
+
+                    if (username == compte.Username && password == compte.Password)
+                    {
+                        compte.Actif = true;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
@@ -90,9 +115,10 @@ namespace ProjetFinal.Classe
         {
             bool estActif = (compte != null) ? compte.Actif : false;
             try { 
+
             using MySqlConnection con = new MySqlConnection(connectionString);
             using MySqlCommand commande = con.CreateCommand();
-            commande.CommandText = "Select * from admin where id = 1";
+            commande.CommandText = "select * from admin";
             con.Open();
             using MySqlDataReader r = commande.ExecuteReader();
             while (r.Read())
