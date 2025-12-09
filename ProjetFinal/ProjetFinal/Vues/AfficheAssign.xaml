@@ -35,12 +35,15 @@
                     </TextBlock>
                     
                     <TextBlock>
-                        <Run Text="Salaire:                  "/>
+                        <Run Text="Salaire cumulé:     "/>
                         <Run Text="{x:Bind Salaire}"/>
                         <Run Text="$"/>
                     </TextBlock>
 
-                    <Button x:Name="btnDel" Click="btnDel_Click">Supprimer</Button>
+                    <Grid>
+                        <Button x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                        <Button x:Name="btnDel" Click="btnDel_Click" HorizontalAlignment="Right">Supprimer</Button>
+                    </Grid>
                 </StackPanel>
             </DataTemplate>
         </GridView.ItemTemplate>

@@ -109,13 +109,19 @@ namespace ProjetFinal
             var picker = new Windows.Storage.Pickers.FileSavePicker();
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
             WinRT.Interop.InitializeWithWindow.Initialize(picker, hWnd);
-            picker.SuggestedFileName = "test";
+            picker.SuggestedFileName = "projets";
             picker.FileTypeChoices.Add("Fichier CSV", new List<string>() { ".csv" });
             
             Windows.Storage.StorageFile monFichier = await picker.PickSaveFileAsync();
-            List<Projet> liste = SingletonDB.getInstance().exporter();
+            List<string> liste = new List<string>();
+            liste.Add("Numéro de projet;Titre;Date de début;Description;Budget;Salaire Total;Client;Statut");
+            liste.AddRange(SingletonDB.getInstance().exporter().ConvertAll(x => x.ToString()));
             if (monFichier != null)
-                await Windows.Storage.FileIO.WriteLinesAsync(monFichier, liste.ConvertAll(x => x.ToString()), Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            {
+
+                await Windows.Storage.FileIO.WriteLinesAsync(monFichier, liste, Windows.Storage.Streams.UnicodeEncoding.Utf8);
+            }
+                
         }
 
         private void mfiQuit_Click(object sender, RoutedEventArgs e)

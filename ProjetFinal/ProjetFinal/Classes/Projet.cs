@@ -52,7 +52,7 @@ namespace ProjetFinal.Classe
 
         public override string ToString()
         {
-            return $"No Projet: {noProjet}, Titre: {titre}, Date de Debut: {dateDebut}, Description: {description}, Budget: {budget}, Total Salaire: {totalSalaire}, Client ID: {clientId}, Statut: {statut}";
+            return $"{noProjet};{titre};{dateDebut};{description};{budget};{totalSalaire};{nomClient};{statut}";
         }
     }
 }

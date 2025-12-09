@@ -51,11 +51,23 @@ namespace ProjetFinal.Vues
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
             string regexTel = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$";
+            string regexAdr = "^\\d+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
+            string regexNom = "^[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+ [A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
 
             if (string.IsNullOrEmpty(tbxNom.Text))
             {
-                valide= false;
-                tblErrNom.Text= "Nom invalide";
+                valide = false;
+                tblErrNom.Text = "Nom absent";
+            }
+            else if (!Regex.IsMatch(tbxNom.Text, regexNom))
+            {
+                valide = false;
+                tblErrNom.Text = "Format invalide (Prénom Nom)";
+            }
+            else if (tbxNom.Text.Length > 100)
+            {
+                valide = false;
+                tblErrNom.Text = "Nom trop long";
             }
             else
             {
@@ -67,25 +79,45 @@ namespace ProjetFinal.Vues
                 valide = false;
                 tblErrAdr.Text = "Adresse invalide";
             }
+            else if (!Regex.IsMatch(tbxAdr.Text, regexAdr))
+            {
+                valide = false;
+                tblErrAdr.Text = "Format invalide (123 Rue Exemple)";
+            }
             else
             {
                 tblErrAdr.Text = "";
             }
 
-            if (string.IsNullOrEmpty(tbxTel.Text) || !Regex.IsMatch(tbxTel.Text,regexTel))
+            if (string.IsNullOrEmpty(tbxTel.Text))
             {
                 valide = false;
-                tblErrTel.Text = "Numéro de téléphone invalide (123-456-7890)";
+                tblErrTel.Text = "Numéro de téléphone absent";
+            }
+            else if (!Regex.IsMatch(tbxTel.Text, regexTel))
+            {
+                valide = false;
+                tblErrTel.Text = "Format invalide (123-456-7890)";
             }
             else
             {
                 tblErrTel.Text = "";
             }
 
-            if (string.IsNullOrEmpty(tbxMail.Text) || !Regex.IsMatch(tbxMail.Text, regexMail))
+            if (string.IsNullOrEmpty(tbxMail.Text))
             {
                 valide = false;
-                tblErrMail.Text = "Email invalide";
+                tblErrMail.Text = "Email absent";
+            }
+            else if (!Regex.IsMatch(tbxMail.Text, regexMail))
+            {
+                valide = false;
+                tblErrMail.Text = "Format invalide";
+            }
+            else if (tbxMail.Text.Length > 100)
+            {
+                valide = false;
+                tblErrMail.Text = "Email trop long";
             }
             else
             {

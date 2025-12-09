@@ -60,7 +60,7 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxName.Text))
             {
                 valide=false;
-                tblErrName.Text = "Nom invalide";
+                tblErrName.Text = "Nom absent";
             }
             else
             {
@@ -70,7 +70,7 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxPass.Text))
             {
                 valide = false;
-                tblErrPass.Text = "Mot de passe invalide";
+                tblErrPass.Text = "Mot de passe absent";
             }
             else
             {
@@ -94,8 +94,8 @@ namespace ProjetFinal.Vues
                 }
                 else
                 {
-                    tblErrName.Text = "Nom ou mot de passe inexistant";
-                    tblErrPass.Text = "Nom ou mot de passe inexistant";
+                    tblErrName.Text = "Nom inexistant";
+                    tblErrPass.Text = "Mot de passe inexistant";
                 }
                 
             }

@@ -29,6 +29,7 @@ namespace ProjetFinal
         {
             InitializeComponent();
             gvProjets.ItemsSource = SingletonDB.getInstance().ListeProjet;
+            SingletonDB.getInstance().updateTotalSalaire();
             SingletonDB.getInstance().getAllProjets();
         }
 

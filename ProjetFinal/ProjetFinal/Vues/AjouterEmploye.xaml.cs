@@ -31,17 +31,25 @@ namespace ProjetFinal.Vues
             InitializeComponent();
             dtpkrBirth.MaxYear=DateTimeOffset.Now.AddYears(-18);
             dtpkrHire.MaxYear = DateTimeOffset.Now;
+            dtpkrHire.MinYear = DateTimeOffset.Now.AddYears(-75);
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+            string regexAdr = "^\\d+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
+
 
             if (string.IsNullOrEmpty(tbxPre.Text))
             {
-                valide= false;
-                tblErrPre.Text = "Prénom invalide";
+                valide = false;
+                tblErrPre.Text = "Prénom absent";
+            }
+            else if (tbxPre.Text.Length > 50)
+            {
+                valide = false;
+                tblErrPre.Text = "Prénom trop long";
             }
             else
             {
@@ -53,15 +61,25 @@ namespace ProjetFinal.Vues
                 valide = false;
                 tblErrNom.Text = "Nom invalide";
             }
+            else if (tbxNom.Text.Length > 50)
+            {
+                valide = false;
+                tblErrNom.Text = "Nom trop long";
+            }
             else
             {
                 tblErrNom.Text = "";
             }
 
-            if(string.IsNullOrEmpty(tbxMail.Text) || !Regex.IsMatch(tbxMail.Text, regexMail))
+            if (string.IsNullOrEmpty(tbxMail.Text))
             {
                 valide = false;
-                tblErrMail.Text = "Email invalide";
+                tblErrMail.Text = "Email absent";
+            }
+            else if (!Regex.IsMatch(tbxMail.Text, regexMail))
+            {
+                valide = false;
+                tblErrMail.Text = "Format d'email invalide";
             }
             else
             {
@@ -71,17 +89,22 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxAdr.Text))
             {
                 valide = false;
-                tblErrAdr.Text = "Adresse invalide";
+                tblErrAdr.Text = "Adresse absente";
+            }
+            else if (!Regex.IsMatch(tbxAdr.Text, regexAdr))
+            {
+                valide = false;
+                tblErrAdr.Text = "Format d'adresse invalide (123 Rue Exemple)";
             }
             else
             {
                 tblErrAdr.Text = "";
             }
 
-            if(dtpkrBirth.SelectedDate == null)
+            if (dtpkrBirth.SelectedDate == null)
             {
                 valide = false;
-                tblErrBirth.Text = "Date de naissance invalide";
+                tblErrBirth.Text = "Date de naissance non sélectionnée";
             }
             else
             {
@@ -91,24 +114,44 @@ namespace ProjetFinal.Vues
             if (dtpkrHire.SelectedDate == null)
             {
                 valide = false;
-                tblErrHire.Text = "Date d'embauche invalide";
+                tblErrHire.Text = "Date d'embauche non sélectionnée";
             }
             else
             {
                 tblErrHire.Text = "";
             }
 
-            if(string.IsNullOrEmpty(tbxTaux.Text) || !Double.TryParse(tbxTaux.Text, out double nbr))
+            if (string.IsNullOrEmpty(tbxTaux.Text))
             {
                 valide = false;
-                tblErrTaux.Text = "Taux horaire invalide (Format: 12.34)";
+                tblErrTaux.Text = "Taux horaire absent";
+            }
+            else if (!Double.TryParse(tbxTaux.Text, out double nbr))
+            {
+                valide = false;
+                tblErrTaux.Text = "Taux horaire non numérique";
+            }
+            else if (Convert.ToDouble(tbxTaux.Text) < 16)
+            {
+                valide = false;
+                tblErrTaux.Text = "Taux horaire trop bas";
+            }
+            else if (Convert.ToDouble(tbxTaux.Text) < 50)
+            {
+                valide = false;
+                tblErrTaux.Text = "Taux horaire trop haut";
             }
             else
             {
                 tblErrTaux.Text = "";
             }
 
-            if(string.IsNullOrEmpty(tbxPhoto.Text) || !Uri.IsWellFormedUriString(tbxPhoto.Text, UriKind.Absolute))
+            if (string.IsNullOrEmpty(tbxPhoto.Text))
+            {
+                valide = false;
+                tblErrPhoto.Text = "Url de photo absent";
+            }
+            else if (!Uri.IsWellFormedUriString(tbxPhoto.Text, UriKind.Absolute))
             {
                 valide = false;
                 tblErrPhoto.Text = "Url de photo invalide";
@@ -121,7 +164,7 @@ namespace ProjetFinal.Vues
             if (cmbbxStatut.SelectedIndex == -1)
             {
                 valide = false;
-                tblErrStatut.Text = "Statut invalide";
+                tblErrStatut.Text = "Statut non sélectionné";
             }
             else
             {

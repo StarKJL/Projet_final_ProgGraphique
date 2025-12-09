@@ -185,7 +185,15 @@ namespace ProjetFinal.Classe
                     DateTime dateDebut = r.GetDateTime("dateDebut");
                     string description = r.GetString("description");
                     double budget = r.GetDouble("budget");
-                    double totalSalaire = r.GetDouble("totalSalaire");
+                    double totalSalaire;
+                    if (r.IsDBNull(r.GetOrdinal("totalSalaire")))
+                    {
+                        totalSalaire = 0;
+                    }
+                    else
+                    {
+                        totalSalaire = r.GetDouble("totalSalaire");
+                    }
                     int clientId = r.GetInt32("idClient");
                     string statut = r.GetString("statut");
                     string clientNom = r.GetString("nomClient");
@@ -351,7 +359,7 @@ namespace ProjetFinal.Classe
         }
 
         //Inserts
-        public void creeProjet(string titre,DateTime dateDebut,string description,double budget,double totalSalaire,int idClient,string statut)
+        public void creeProjet(string titre,DateTime dateDebut,string description,double budget,int idClient,string statut)
         {
             try
             {
@@ -363,7 +371,7 @@ namespace ProjetFinal.Classe
                 commande.Parameters.AddWithValue("@dateDebut", dateDebut);
                 commande.Parameters.AddWithValue("@description", description);
                 commande.Parameters.AddWithValue("@budget", budget);
-                commande.Parameters.AddWithValue("@totalSalaire", totalSalaire);
+                commande.Parameters.AddWithValue("@totalSalaire", 0);
                 commande.Parameters.AddWithValue("@idClient", idClient);
                 commande.Parameters.AddWithValue("@statut", statut);
 
@@ -381,7 +389,7 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
-        public void associerEmployeAProjet(int nbHrs,double salaire,string matricule,string noProjet)
+        public void associerEmployeAProjet(int nbHrs,string matricule,string noProjet)
         {
             try
             {
@@ -390,11 +398,11 @@ namespace ProjetFinal.Classe
                 commande.Connection = con;
                 commande.CommandText = "insert into employeprojet (nbHrs,salaireCumul,matricule,noProjet) values(@nbHrs,@salaire,@matricule,@noProjet) ";
                 commande.Parameters.AddWithValue("@nbHrs", nbHrs);
-                commande.Parameters.AddWithValue("@salaire", salaire);
+                commande.Parameters.AddWithValue("@salaire", 0);
                 commande.Parameters.AddWithValue("@matricule", matricule);
                 commande.Parameters.AddWithValue("@noProjet", noProjet);
 
-
+                
 
                 con.Open();
                 int i = commande.ExecuteNonQuery();
@@ -402,7 +410,7 @@ namespace ProjetFinal.Classe
                 commande2.Connection = con;
                 commande2.CommandText = "select LAST_INSERT_ID() ";
                 var res = commande2.ExecuteScalar();
-                getAllProjets();
+                getAllEmployeProjet();
             }
             catch (MySqlException ex)
             {
@@ -652,25 +660,27 @@ namespace ProjetFinal.Classe
             }
         }
 
-        public void ModifierassociationEmployeAProjet(int nbHrs, double salaire, string matricule, string noProjet)
+        public void ModifierassociationEmployeAProjet(int id, int nbHrs, string matricule, string noProjet)
         {
             try
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "update employeprojet set nbHrs = @nbHrs,salaire = @salaire where noProjet = @noProjet and matricule=@matricule";
+                commande.CommandText = "update employeprojet set nbHrs = @nbHrs,salaireCumul = @salaire, noProjet=@noProjet, matricule=@matricule where id=@id";
+                commande.Parameters.AddWithValue("@id", id);
                 commande.Parameters.AddWithValue("@nbHrs", nbHrs);
-                commande.Parameters.AddWithValue("@salaire", salaire);
+                commande.Parameters.AddWithValue("@salaire", 0);
                 commande.Parameters.AddWithValue("@matricule", matricule);
                 commande.Parameters.AddWithValue("@noProjet", noProjet);
+                
 
 
 
                 con.Open();
                 int i = commande.ExecuteNonQuery();
               
-                getAllProjets();
+                getAllEmployeProjet();
             }
             catch (MySqlException ex)
             {
@@ -678,7 +688,7 @@ namespace ProjetFinal.Classe
             }
         }
 
-        public void modifieProjet(string noProjet,string titre, DateTime dateDebut, string description, double budget, double totalSalaire, int idClient, string statut)
+        public void modifieProjet(string noProjet,string titre, DateTime dateDebut, string description, double budget, int idClient, string statut)
         {
             try
             {
@@ -690,13 +700,13 @@ namespace ProjetFinal.Classe
                 commande.Parameters.AddWithValue("@dateDebut", dateDebut);
                 commande.Parameters.AddWithValue("@description", description);
                 commande.Parameters.AddWithValue("@budget", budget);
-                commande.Parameters.AddWithValue("@totalSalaire", totalSalaire);
+                commande.Parameters.AddWithValue("@totalSalaire", 0);
                 commande.Parameters.AddWithValue("@idClient", idClient);
                 commande.Parameters.AddWithValue("@statut", statut);
                 commande.Parameters.AddWithValue("@noProjet", noProjet);
 
 
-
+                updateTotalSalaire();
                 con.Open();
                 int i = commande.ExecuteNonQuery();
                
@@ -714,7 +724,7 @@ namespace ProjetFinal.Classe
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "update projet set totalSalaire = (select SUM(tauxHoraire * nbHrs) from employeprojet ep  inner join employe e on e.matricule = ep.matricule where ep.noProjet = projet.noProjet);";
+                commande.CommandText = "update projet set totalSalaire = round((select SUM(tauxHoraire * nbHrs) from employeprojet ep  inner join employe e on e.matricule = ep.matricule where ep.noProjet = projet.noProjet),2);";
 
                 
 
@@ -729,21 +739,20 @@ namespace ProjetFinal.Classe
             }
         }
 
-        public void updateSalaire(string matricule)
+        public void updateSalaire()
         {
             try
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand commande = new MySqlCommand();
                 commande.Connection = con;
-                commande.CommandText = "update employeprojet ep inner join employe e on e.matricule = ep.matricule set ep.salaire = tauxHoraire * nbHrs WHERE ep.matricule = @matricule;";
-                commande.Parameters.AddWithValue("@matricule", matricule);
+                commande.CommandText = "update employeprojet ep inner join employe e on e.matricule = ep.matricule set ep.salaireCumul = round(tauxHoraire * nbHrs,2);";
 
 
                 con.Open();
                 int i = commande.ExecuteNonQuery();
 
-                getAllProjets();
+                getAllEmployeProjet();
             }
             catch (MySqlException ex)
             {

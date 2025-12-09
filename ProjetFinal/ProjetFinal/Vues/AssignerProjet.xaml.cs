@@ -37,39 +37,25 @@ namespace ProjetFinal.Vues
         {
             bool valide = true;
 
-            if(!int.TryParse(tbxNbrHrs.Text, out int nbr))
+            if (!int.TryParse(tbxNbrHrs.Text, out int nbr))
             {
                 valide = false;
-                tblErrHrs.Text = "Nombre d'heures invalide";
-            }else if (nbr <= 0)
+                tblErrHrs.Text = "Nombre d'heures non numérique";
+            }
+            else if (nbr <= 0)
             {
                 valide = false;
-                tblErrHrs.Text = "Nombre d'heures invalide";
+                tblErrHrs.Text = "Nombre d'heures négatif";
             }
             else
             {
                 tblErrHrs.Text = "";
             }
 
-            if (!double.TryParse(tbxSal.Text, out double dbl))
-            {
-                valide = false;
-                tblErrSal.Text = "Salaire invalide";
-            }
-            else if (dbl <= 0)
-            {
-                valide = false;
-                tblErrSal.Text = "Salaire invalide";
-            }
-            else
-            {
-                tblErrSal.Text = "";
-            }
-
             if (cmbbxProjet.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrProjet.Text = "Projet invalide";
+                tblErrProjet.Text = "Projet non sélectionné";
             }
             else
             {
@@ -79,7 +65,7 @@ namespace ProjetFinal.Vues
             if (cmbbxEmploye.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrEmploye.Text = "Employé invalide";
+                tblErrEmploye.Text = "Employé non sélectionné";
             }
             else
             {
@@ -90,7 +76,7 @@ namespace ProjetFinal.Vues
             {
                 Employe employe = cmbbxEmploye.SelectedItem as Employe;
                 Projet projet = cmbbxProjet.SelectedItem as Projet;
-                SingletonDB.getInstance().associerEmployeAProjet(Convert.ToInt32(tbxNbrHrs.Text),Convert.ToDouble(tbxSal.Text),employe.Matricule,projet.NoProjet);
+                SingletonDB.getInstance().associerEmployeAProjet(Convert.ToInt32(tbxNbrHrs.Text),employe.Matricule,projet.NoProjet);
                 Frame.Navigate(typeof(AfficheAssign));
             }
         }
