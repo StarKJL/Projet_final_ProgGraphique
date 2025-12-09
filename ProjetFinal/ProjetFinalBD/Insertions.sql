@@ -36,7 +36,7 @@ insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, t
 insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut) values ('Bhatia', 'Ardath', '1970-04-23', 'abhatia8@businessweek.com', '31 Hoffman Way', '2021-07-05', '23.03', 'http://dummyimage.com/108x100.png/ff4444/ffffff','Journalier');
 insert into employe (nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut) values ('Orlton', 'Iris', '1973-03-22', 'iorlton9@google.de', '58 Red Cloud Street', '2025-02-04', '17.93', 'http://dummyimage.com/218x100.png/ff4444/ffffff','Permanent');
 
-insert into admin (username, password) VALUES ('admin','secret1234');
+insert into admin (username, password) VALUES ('admin',SHA2('secret1234',256));
 -- EmployeProjet
 /*
  id INT AUTO_INCREMENT PRIMARY KEY ,
