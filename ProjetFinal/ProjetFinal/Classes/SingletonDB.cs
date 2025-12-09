@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace ProjetFinal.Classe
         ObservableCollection<Employe> listeEmploye;
         ObservableCollection<EmployeProjet> listeProjetEmploye;
         admin compte;
-
+        int compter=0;
 
 
         static SingletonDB instance = null;
@@ -30,7 +31,8 @@ namespace ProjetFinal.Classe
         internal ObservableCollection<Projet> ListeProjet { get => listeProjet; }
         internal ObservableCollection<EmployeProjet> ListeProjetEmploye { get => listeProjetEmploye;}
         internal ObservableCollection<Employe> ListeEmploye { get => listeEmploye; }
-        internal admin Compte { get => compte;}
+
+        internal admin Compte { get => compte; }
 
 
         private SingletonDB()
@@ -40,6 +42,8 @@ namespace ProjetFinal.Classe
             listeProjet = new ObservableCollection<Projet>();
             listeEmploye = new ObservableCollection<Employe>();
             listeProjetEmploye = new ObservableCollection<EmployeProjet>();
+
+
             getCompte();
         }
 
@@ -50,96 +54,70 @@ namespace ProjetFinal.Classe
             return instance;
         }
 
-        public bool connexion(string usernameInput, string passwordInput)
-        {
-            try
-            {
-                string username="";
-                string password="";
+        public bool connexion(string usernameInput, string passwordInput) { 
+            try { 
+                string username = ""; 
+                string password = ""; 
                 using MySqlConnection con = new MySqlConnection(connectionString);
-                using MySqlCommand commande = new MySqlCommand();
-                commande.Connection = con;
-                commande.CommandText = "select * from admin where username=@username and password = SHA2(@password, 256)";
+                using MySqlCommand commande = new MySqlCommand(); commande.Connection = con;
+                commande.CommandText = "select * from admin where username=@username and password = SHA2(@password, 256)"; 
                 commande.Parameters.AddWithValue("@username", usernameInput);
-                commande.Parameters.AddWithValue("@password", passwordInput);
+                commande.Parameters.AddWithValue("@password", passwordInput); 
+                con.Open(); using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read()) { 
+                    int id = r.GetInt32("id");
+                    username = r.GetString("username"); password = r.GetString("password"); 
+                } 
+                if (username != null || password != null) 
+                { 
+                    if (username == compte.Username && password == compte.Password && compter>0) {
+                        compte.Actif = true; return true; 
+                    } else { return false; }
+                } else {
+                    return false;
+                } 
+            } catch (MySqlException ex) {
+                Debug.WriteLine(ex.Message); return false; } }
+
+
+
+
+
+        public void deconnexion() {
+            try { 
+                compte.Actif = false;
+            } catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void getCompte() { 
+            bool estActif = (compte != null) ? compte.Actif : false;
+            try {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = con.CreateCommand();
+                commande.CommandText = "select * from admin";
                 con.Open();
                 using MySqlDataReader r = commande.ExecuteReader();
-                while (r.Read())
-                {
-
+                while (r.Read()) {
                     int id = r.GetInt32("id");
-                    username = r.GetString("username");
-                    password = r.GetString("password");
-                }
-                if (username != null || password != null)
-                {
-
-                    if (username == compte.Username && password == compte.Password)
-                    {
-                        compte.Actif = true;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (MySqlException ex)
-            {
+                    string username = r.GetString("username"); 
+                    string password = r.GetString("password"); 
+                    
+                    
+                    if (id != null && username != null && password != null) {
+                    compte = new admin(id, username, password);
+                        compte.Actif = estActif;
+                        compter++;
+                        }
+                } 
+            } catch (MySqlException ex) 
+            { 
                 Debug.WriteLine(ex.Message);
-                return false;
-            }
+            } 
         }
 
-        public void deconnexion()
-        {
-            try
-            {
-                
-                    compte.Actif = false;
-                
-            }
-            catch (MySqlException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
-
-
-        public void getCompte() //charge la liste avec tous les clients
-        {
-            bool estActif = (compte != null) ? compte.Actif : false;
-            try { 
-
-            using MySqlConnection con = new MySqlConnection(connectionString);
-            using MySqlCommand commande = con.CreateCommand();
-            commande.CommandText = "select * from admin";
-            con.Open();
-            using MySqlDataReader r = commande.ExecuteReader();
-            while (r.Read())
-            {
-
-                    int id = r.GetInt32("id");
-                    string username = r.GetString("username");
-                    string password = r.GetString("password");
-
-
-
-
-                    compte = new admin(id,username,password);
-                    compte.Actif = estActif;
-            }
-        }
-            catch (MySqlException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-}
         public void getAllClients() //charge la liste avec tous les clients
         {
             listeClient.Clear(); //permet de vider la liste avant de la recharger
@@ -279,6 +257,42 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public void getAllEmployePasSurUnProjetEnCeMoment()
+        {
+            listeEmploye.Clear();
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = con.CreateCommand();
+                commande.CommandText = "Select * from employe e inner join employeprojet ep on ep.matricule = e.matricule inner join projet p on ep.noProjet = p.noProjet where statut='Terminé' OR statut= null ";
+                con.Open();
+                using MySqlDataReader r = commande.ExecuteReader();
+                while (r.Read())
+                {
+                    string matricule = r.GetString("matricule");
+
+                    string nom = r.GetString("nom");
+                    string prenom = r.GetString("prenom");
+                    DateTime dateNaissance = r.GetDateTime("dateNaissance");
+                    string email = r.GetString("email");
+                    string adresse = r.GetString("adresse");
+                    DateTime dateEmbauche = r.GetDateTime("dateEmbauche");
+                    double tauxHoraire = r.GetDouble("tauxHoraire");
+                    string photoId = r.GetString("photoId");
+                    string statut = r.GetString("statut");
+
+
+                    Employe employe = new Employe(matricule, nom, prenom, dateNaissance, email, adresse, dateEmbauche, tauxHoraire, photoId, statut);
+                    listeEmploye.Add(employe);
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+        
 
         public void getAllEmployeInfoParProjet(string nombre)
         {
@@ -483,6 +497,27 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+
+        public void CreerAdminParDefaut()
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand cmd = con.CreateCommand();
+
+                cmd.CommandText = @"INSERT INTO admin (username, password)VALUES ('admin', SHA2('admin123', 256))";
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+
+                Debug.WriteLine("Compte admin par défaut créé (admin / admin123).");
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
         //Supression
         public void supprimerClient(int id)
         {
