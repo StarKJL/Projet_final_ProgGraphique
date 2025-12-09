@@ -707,6 +707,51 @@ namespace ProjetFinal.Classe
                 Debug.WriteLine(ex.Message);
             }
         }
+        public void updateTotalSalaire()
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update projet set totalSalaire = (select SUM(tauxHoraire * nbHrs) from employeprojet ep  inner join employe e on e.matricule = ep.matricule where ep.noProjet = projet.noProjet);";
+
+                
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public void updateSalaire(string matricule)
+        {
+            try
+            {
+                using MySqlConnection con = new MySqlConnection(connectionString);
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "update employeprojet ep inner join employe e on e.matricule = ep.matricule set ep.salaire = tauxHoraire * nbHrs WHERE ep.matricule = @matricule;";
+                commande.Parameters.AddWithValue("@matricule", matricule);
+
+
+                con.Open();
+                int i = commande.ExecuteNonQuery();
+
+                getAllProjets();
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+        }
+
+
 
     }
 }
