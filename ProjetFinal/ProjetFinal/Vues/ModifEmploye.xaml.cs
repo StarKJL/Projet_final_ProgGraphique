@@ -54,7 +54,7 @@ namespace ProjetFinal.Vues
         {
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-            string regexAdr = "^\\d+\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+(?:\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+)*$\r\n";
+            string regexAdr = "\\d+\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+(?:\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+)*$";
 
 
             if (string.IsNullOrEmpty(tbxPre.Text))
@@ -127,12 +127,12 @@ namespace ProjetFinal.Vues
                 valide = false;
                 tblErrTaux.Text = "Taux horaire non numérique";
             }
-            else if (Convert.ToDouble(tbxTaux.Text) < 16)
+            else if (Convert.ToDouble(tbxTaux.Text) < 15)
             {
                 valide = false;
                 tblErrTaux.Text = "Taux horaire trop bas";
             }
-            else if (Convert.ToDouble(tbxTaux.Text) < 50)
+            else if (Convert.ToDouble(tbxTaux.Text) > 50)
             {
                 valide = false;
                 tblErrTaux.Text = "Taux horaire trop élevé";

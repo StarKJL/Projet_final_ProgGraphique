@@ -38,7 +38,7 @@ namespace ProjetFinal.Vues
         {
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-            string regexAdr = "^\\d+\\s+[A-Za-zР-жи-іј-џ'-]+(?:\\s+[A-Za-zР-жи-іј-џ'-]+)*$\r\n";
+            string regexAdr = "\\d+\\s+[A-Za-zР-жи-іј-џ'-]+(?:\\s+[A-Za-zР-жи-іј-џ'-]+)*$";
 
 
             if (string.IsNullOrEmpty(tbxPre.Text))
