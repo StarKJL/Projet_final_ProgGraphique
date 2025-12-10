@@ -10,7 +10,7 @@
 
     <StackPanel
         Width="400"
-        Height="500"
+        Height="400"
         Margin="50"
         Padding="20"
         CornerRadius="20"
@@ -28,7 +28,7 @@
         <TextBlock Foreground="Red" x:Name="tblErrProjet"/>
 
         <ComboBox x:Name="cmbbxEmploye"
-              Header="Employe"
+              Header="Employé"
               PlaceholderText="Sélectionnez un employé"
               DisplayMemberPath="Nom" 
               Margin="5"/>

@@ -80,5 +80,10 @@ namespace ProjetFinal
 
             }
         }
+
+        private void gvProjets_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Frame.Navigate(typeof(DetailsProjet), gvProjets.SelectedItem as Projet);
+        }
     }
 }

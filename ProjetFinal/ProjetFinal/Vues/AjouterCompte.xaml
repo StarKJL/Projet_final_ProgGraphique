@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ProjetFinal.Vues.AjouterCompte"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjetFinal.Vues"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel
+        Width="400"
+        Height="300"
+        Margin="50"
+        Padding="20"
+        CornerRadius="20"
+        Background="LightBlue">
+
+        <TextBlock FontSize="25" HorizontalAlignment="Center">Créer un compte admin</TextBlock>
+
+        <TextBox x:Name="tbxName" Header="Nom"/>
+        <TextBlock Foreground="Red" x:Name="tblErrName"/>
+
+        <PasswordBox x:Name="tbxPass" Header="Mot de passe"/>
+        <TextBlock Foreground="Red" x:Name="tblErrPass"/>
+
+        <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>
+    </StackPanel>
+</Page>

@@ -54,7 +54,7 @@ namespace ProjetFinal.Vues
         {
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-            string regexAdr = "^\\d+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
+            string regexAdr = "^\\d+\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+(?:\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+)*$\r\n";
 
 
             if (string.IsNullOrEmpty(tbxPre.Text))
@@ -95,7 +95,7 @@ namespace ProjetFinal.Vues
             else if (!Regex.IsMatch(tbxMail.Text, regexMail))
             {
                 valide = false;
-                tblErrMail.Text = "Format d'email invalide";
+                tblErrMail.Text = "Format invalide (exemple@mail.com)";
             }
             else
             {
@@ -135,7 +135,7 @@ namespace ProjetFinal.Vues
             else if (Convert.ToDouble(tbxTaux.Text) < 50)
             {
                 valide = false;
-                tblErrTaux.Text = "Taux horaire trop haut";
+                tblErrTaux.Text = "Taux horaire trop élevé";
             }
             else
             {

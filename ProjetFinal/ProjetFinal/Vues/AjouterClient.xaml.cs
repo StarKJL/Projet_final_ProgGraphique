@@ -35,18 +35,12 @@ namespace ProjetFinal.Vues
             bool valide = true;
             string regexMail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
             string regexTel = "^[0-9]{3}-[0-9]{3}-[0-9]{4}$";
-            string regexAdr = "^\\d+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+\\s[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
-            string regexNom = "^[A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+ [A-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ][a-zàâäçéèêëîïôöùûüÿA-ZÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸ'-]+$";
+            string regexAdr = "^\\d+\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+(?:\\s+[A-Za-zÀ-ÖØ-öø-ÿ'-]+)*$\r\n";
 
             if (string.IsNullOrEmpty(tbxNom.Text))
             {
                 valide = false;
                 tblErrNom.Text = "Nom absent";
-            }
-            else if (!Regex.IsMatch(tbxNom.Text, regexNom))
-            {
-                valide = false;
-                tblErrNom.Text = "Format invalide (Prénom Nom)";
             }
             else if (tbxNom.Text.Length > 100)
             {
@@ -96,7 +90,7 @@ namespace ProjetFinal.Vues
             else if (!Regex.IsMatch(tbxMail.Text, regexMail))
             {
                 valide = false;
-                tblErrMail.Text = "Format invalide";
+                tblErrMail.Text = "Format invalide (exemple@mail.com)";
             }
             else if (tbxMail.Text.Length > 100)
             {

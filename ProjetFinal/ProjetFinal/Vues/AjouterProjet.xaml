@@ -10,6 +10,7 @@
 
     <StackPanel
         Width="400"
+        Height="450"
         Margin="50"
         Padding="20"
         CornerRadius="20"

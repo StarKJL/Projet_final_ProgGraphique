@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,8 +32,8 @@ namespace ProjetFinal.Classe
         internal ObservableCollection<Projet> ListeProjet { get => listeProjet; }
         internal ObservableCollection<EmployeProjet> ListeProjetEmploye { get => listeProjetEmploye;}
         internal ObservableCollection<Employe> ListeEmploye { get => listeEmploye; }
-
         internal admin Compte { get => compte; }
+        internal int Compter { get => compter; }
 
 
         private SingletonDB()
@@ -54,32 +55,55 @@ namespace ProjetFinal.Classe
             return instance;
         }
 
-        public bool connexion(string usernameInput, string passwordInput) { 
-            try { 
-                string username = ""; 
-                string password = ""; 
+        public int connexion(string usernameInput, string passwordInput)
+        {
+            try
+            {
                 using MySqlConnection con = new MySqlConnection(connectionString);
-                using MySqlCommand commande = new MySqlCommand(); commande.Connection = con;
-                commande.CommandText = "select * from admin where username=@username and password = SHA2(@password, 256)"; 
-                commande.Parameters.AddWithValue("@username", usernameInput);
-                commande.Parameters.AddWithValue("@password", passwordInput); 
-                con.Open(); using MySqlDataReader r = commande.ExecuteReader();
-                while (r.Read()) { 
-                    int id = r.GetInt32("id");
-                    username = r.GetString("username"); password = r.GetString("password"); 
-                } 
-                if (username != null || password != null) 
-                { 
-                    if (username == compte.Username && password == compte.Password && compter>0) {
-                        compte.Actif = true; return true; 
-                    } else { return false; }
-                } else {
-                    return false;
-                } 
-            } catch (MySqlException ex) {
-                Debug.WriteLine(ex.Message); return false; } }
+                using MySqlCommand commande = new MySqlCommand();
+                commande.Connection = con;
+                commande.CommandText = "SELECT id, username, password FROM admin LIMIT 1";
+                con.Open();
 
+                using MySqlDataReader r = commande.ExecuteReader();
+                if (r.Read())
+                {
+                    string dbUsername = r.GetString("username");
+                    string dbPassword = r.GetString("password"); // hash stocké en DB
 
+                    // Hash du mot de passe entré par l’utilisateur
+                    string hashedInput;
+                    using (SHA256 sha256 = SHA256.Create())
+                    {
+                        byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordInput));
+                        hashedInput = BitConverter.ToString(bytes).Replace("-", "").ToLower();
+                    }
+
+                    // Comparaisons
+                    if (usernameInput != dbUsername && hashedInput != dbPassword)
+                        return -3; // les deux faux
+
+                    if (usernameInput != dbUsername)
+                        return -1; // username faux
+
+                    if (hashedInput != dbPassword)
+                        return -2; // password faux
+
+                    // Tout est valide
+                    compte.Actif = true;
+                    return 1;
+                }
+                else
+                {
+                    return -3; // aucune donnée dans la table
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return -3; // erreur générale
+            }
+        }
 
 
 
@@ -498,19 +522,20 @@ namespace ProjetFinal.Classe
             }
         }
 
-        public void CreerAdminParDefaut()
+        public void CreerAdmin(string username, string password)
         {
             try
             {
                 using MySqlConnection con = new MySqlConnection(connectionString);
                 using MySqlCommand cmd = con.CreateCommand();
-
-                cmd.CommandText = @"INSERT INTO admin (username, password)VALUES ('admin', SHA2('admin123', 256))";
-
+                cmd.Connection = con;
+                cmd.CommandText = "INSERT INTO admin (id,username, password) VALUES (1,@username, SHA2(@password, 256))";
+                cmd.Parameters.AddWithValue("@username", username);
+                cmd.Parameters.AddWithValue("@password", password);
                 con.Open();
                 cmd.ExecuteNonQuery();
 
-                Debug.WriteLine("Compte admin par défaut créé (admin / admin123).");
+                getCompte();
             }
             catch (MySqlException ex)
             {

@@ -30,78 +30,100 @@ namespace ProjetFinal
         public MainWindow()
         {
             InitializeComponent();
-            mainFrame.Navigate(typeof(AfficherProjets));
+            SingletonDB.getInstance().getCompte();
+            if(SingletonDB.getInstance().Compter == 0)
+            {
+                mainFrame.Navigate(typeof(AjouterCompte));
+            }
+            else
+            {
+                mainFrame.Navigate(typeof(AfficherProjets));
+            }
+            
         }
 
         private void navView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
         {
-            if(mainFrame.CanGoBack)
+            if (mainFrame.CanGoBack)
+            {
+                if(mainFrame.BackStack.LastOrDefault().SourcePageType == typeof(Connexion))
+                {
+                    mainFrame.BackStack.Remove(mainFrame.BackStack.LastOrDefault());
+
+                }
                 mainFrame.GoBack();
+            }
+                
         }
 
         private void navView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            if (args.InvokedItemContainer is NavigationViewItem item)
+            SingletonDB.getInstance().getCompte();
+            if (SingletonDB.getInstance().Compter > 0)
             {
-                switch (item.Name)
+                if (args.InvokedItemContainer is NavigationViewItem item)
                 {
-                    case "iProjets":
-                        mainFrame.Navigate(typeof(AfficherProjets));
-                        break;
-                    case "iClients":
-                        mainFrame.Navigate(typeof (AfficherClients));
-                        break;
-                    case "iEmployes":
-                        mainFrame.Navigate(typeof(AfficherEmployes));
-                        break;
-                    case "iAsso":
-                        mainFrame.Navigate(typeof(AfficheAssign));
-                        break;
-                    case "iAjoutProjet":
-                        if (SingletonDB.getInstance().Compte.Actif)
-                        {
-                            mainFrame.Navigate(typeof(AjouterProjet));
-                        }
-                        else
-                        {
-                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterProjet));
-                        }
-                        break;
-                    case "iAssignProjet":
-                        if (SingletonDB.getInstance().Compte.Actif)
-                        {
-                            mainFrame.Navigate(typeof(AssignerProjet));
-                        }
-                        else
-                        {
-                            mainFrame.Navigate(typeof(Connexion), typeof(AssignerProjet));
-                        }
-                        break;
-                    case "iAjoutClient":
-                        if (SingletonDB.getInstance().Compte.Actif)
-                        {
-                            mainFrame.Navigate(typeof(AjouterClient));
-                        }
-                        else
-                        {
-                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterClient));
-                        }
-                        break;
-                    case "iAjoutEmploye":
-                        if (SingletonDB.getInstance().Compte.Actif)
-                        {
-                            mainFrame.Navigate(typeof(AjouterEmploye));
-                        }
-                        else
-                        {
-                            mainFrame.Navigate(typeof(Connexion), typeof(AjouterEmploye));
-                        }
-                        break;
-                    case "iConnexion":
-                        mainFrame.Navigate(typeof(Connexion));
-                        break;
+                    switch (item.Name)
+                    {
+                        case "iProjets":
+                            mainFrame.Navigate(typeof(AfficherProjets));
+                            break;
+                        case "iClients":
+                            mainFrame.Navigate(typeof(AfficherClients));
+                            break;
+                        case "iEmployes":
+                            mainFrame.Navigate(typeof(AfficherEmployes));
+                            break;
+                        case "iAsso":
+                            mainFrame.Navigate(typeof(AfficheAssign));
+                            break;
+                        case "iAjoutProjet":
+                            if (SingletonDB.getInstance().Compte.Actif)
+                            {
+                                mainFrame.Navigate(typeof(AjouterProjet));
+                            }
+                            else
+                            {
+                                mainFrame.Navigate(typeof(Connexion), typeof(AjouterProjet));
+                            }
+                            break;
+                        case "iAssignProjet":
+                            if (SingletonDB.getInstance().Compte.Actif)
+                            {
+                                mainFrame.Navigate(typeof(AssignerProjet));
+                            }
+                            else
+                            {
+                                mainFrame.Navigate(typeof(Connexion), typeof(AssignerProjet));
+                            }
+                            break;
+                        case "iAjoutClient":
+                            if (SingletonDB.getInstance().Compte.Actif)
+                            {
+                                mainFrame.Navigate(typeof(AjouterClient));
+                            }
+                            else
+                            {
+                                mainFrame.Navigate(typeof(Connexion), typeof(AjouterClient));
+                            }
+                            break;
+                        case "iAjoutEmploye":
+                            if (SingletonDB.getInstance().Compte.Actif)
+                            {
+                                mainFrame.Navigate(typeof(AjouterEmploye));
+                            }
+                            else
+                            {
+                                mainFrame.Navigate(typeof(Connexion), typeof(AjouterEmploye));
+                            }
+                            break;
+                        case "iConnexion":
+                            mainFrame.Navigate(typeof(Connexion));
+                            break;
+                    }
                 }
             }
+            
         }
 
         private async void mfiExport_Click(object sender, RoutedEventArgs e)
