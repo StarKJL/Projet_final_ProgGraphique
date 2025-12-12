@@ -10,6 +10,7 @@
 
     <StackPanel
         Width="400"
+        Height="450"
         Margin="50"
         Padding="20"
         CornerRadius="20"
@@ -24,9 +25,6 @@
 
         <TextBox x:Name="tbxBudget" Header="Budget"/>
         <TextBlock Foreground="Red" x:Name="tblErrBudget"/>
-
-        <TextBox x:Name="tbxSal" Header="Salaire total des employés"/>
-        <TextBlock Foreground="Red" x:Name="tblErrSal"/>
 
         <ComboBox x:Name="cmbbxClient"
                   Header="Client"

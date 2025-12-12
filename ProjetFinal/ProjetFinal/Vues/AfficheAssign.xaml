@@ -16,12 +16,33 @@
                         Background="LightBlue"
                         Margin="5"
                         Padding="5"
-                        Width="200"
+                        Width="270"
                         CornerRadius="10">
-                    <TextBlock Text="{x:Bind HeuresTravaillees}"/>
-                    <TextBlock Text="{x:Bind Salaire}"/>
-                    <TextBlock Text="{x:Bind MatriculeId}"/>
-                    <TextBlock Text="{x:Bind ProjetId}"/>
+                    <TextBlock>
+                        <Run Text="Projet:                   "/>
+                        <Run Text="{x:Bind TitreProjet}"/>
+                    </TextBlock>
+                    
+                    <TextBlock>
+                        <Run Text="Employé:              "/>
+                        <Run Text="{x:Bind PrenomEmploye}"/>
+                        <Run Text="{x:Bind NomEmploye}"/>
+                    </TextBlock>
+
+                    <TextBlock>
+                        <Run Text="Heures de travail: "/>
+                        <Run Text="{x:Bind HeuresTravaillees}"/>
+                    </TextBlock>
+                    
+                    <TextBlock>
+                        <Run Text="Salaire cumulé:     "/>
+                        <Run Text="{x:Bind Salaire}"/>
+                        <Run Text="$"/>
+                    </TextBlock>
+
+                    <Grid>
+                        <Button x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                    </Grid>
                 </StackPanel>
             </DataTemplate>
         </GridView.ItemTemplate>

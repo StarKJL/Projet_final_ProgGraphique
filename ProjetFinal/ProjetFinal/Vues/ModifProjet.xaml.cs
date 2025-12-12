@@ -45,7 +45,6 @@ namespace ProjetFinal.Vues
                 tbxTitre.Text = _projetModif.Titre;
                 tbxDesc.Text = _projetModif.Description;
                 tbxBudget.Text = _projetModif.Budget.ToString();
-                tbxSal.Text = _projetModif.TotalSalaire.ToString();
                 cmbbxStatut.SelectedItem = _projetModif.Statut;
                 Client clientSelectionne = SingletonDB.getInstance().ListeClient
                     .FirstOrDefault(c => c.Id == projet.ClientId);
@@ -64,7 +63,12 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxTitre.Text))
             {
                 valide = false;
-                tblErrTitre.Text = "Titre invalide";
+                tblErrTitre.Text = "Titre absent";
+            }
+            else if(tbxTitre.Text.Length > 100)
+            {
+                valide = false;
+                tblErrTitre.Text = "Titre trop long";
             }
             else
             {
@@ -74,7 +78,7 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxDesc.Text))
             {
                 valide = false;
-                tblErrDesc.Text = "Description invalide";
+                tblErrDesc.Text = "Description absente";
             }
             else
             {
@@ -84,27 +88,22 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxBudget.Text))
             {
                 valide = false;
-                tblErrBudget.Text = "Budget invalide";
+                tblErrBudget.Text = "Budget absent";
             }
-            else
-            {
-                tblErrTitre.Text = "";
-            }
-
-            if (string.IsNullOrEmpty(tbxSal.Text) || !double.TryParse(tbxSal.Text, out double res))
+            else if(!double.TryParse(tbxBudget.Text, out double budget) || budget < 0)
             {
                 valide = false;
-                tblErrSal.Text = "Salaire total invalide";
+                tblErrBudget.Text = "Valeur non numérique";
             }
             else
             {
-                tblErrSal.Text = "";
+                tblErrBudget.Text = "";
             }
 
             if (cmbbxClient.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrClient.Text = "Client invalide";
+                tblErrClient.Text = "Client non sélectionné";
             }
             else
             {
@@ -114,7 +113,7 @@ namespace ProjetFinal.Vues
             if (cmbbxStatut.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrClient.Text = "Statut invalide";
+                tblErrClient.Text = "Statut non sélectionné";
             }
             else
             {
@@ -125,7 +124,7 @@ namespace ProjetFinal.Vues
             {
                 Client client = cmbbxClient.SelectedItem as Client;
 
-                SingletonDB.getInstance().modifieProjet(_projetModif.NoProjet,tbxTitre.Text, DateTime.Now,tbxDesc.Text,Convert.ToDouble(tbxBudget.Text), Convert.ToDouble(tbxSal.Text),client.Id,cmbbxStatut.SelectedValue.ToString());
+                SingletonDB.getInstance().modifieProjet(_projetModif.NoProjet,tbxTitre.Text, DateTime.Now,tbxDesc.Text,Convert.ToDouble(tbxBudget.Text),client.Id,cmbbxStatut.SelectedValue.ToString());
                 Frame.Navigate(typeof(AfficherProjets));
             }
         }

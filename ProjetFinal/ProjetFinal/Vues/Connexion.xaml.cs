@@ -60,17 +60,17 @@ namespace ProjetFinal.Vues
             if (string.IsNullOrEmpty(tbxName.Text))
             {
                 valide=false;
-                tblErrName.Text = "Nom invalide";
+                tblErrName.Text = "Nom absent";
             }
             else
             {
                 tblErrName.Text = "";
             }
 
-            if (string.IsNullOrEmpty(tbxPass.Text))
+            if (string.IsNullOrEmpty(tbxPass.Password))
             {
                 valide = false;
-                tblErrPass.Text = "Mot de passe invalide";
+                tblErrPass.Text = "Mot de passe absent";
             }
             else
             {
@@ -80,8 +80,8 @@ namespace ProjetFinal.Vues
             if (valide)
             {
                 SingletonDB.getInstance().getCompte();
-                bool connect = SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Text);
-                if (connect)
+                int connect = SingletonDB.getInstance().connexion(tbxName.Text, tbxPass.Password);
+                if (connect>0)
                 {
                     if(_modif != null)
                     {
@@ -92,10 +92,18 @@ namespace ProjetFinal.Vues
                         Frame.Navigate(_pageRetour);
                     }
                 }
-                else
+                else if(connect == -3)
                 {
-                    tblErrName.Text = "Nom ou mot de passe inexistant";
-                    tblErrPass.Text = "Nom ou mot de passe inexistant";
+                    tblErrName.Text = "Nom invalide";
+                    tblErrPass.Text = "Mot de passe invalide";
+                }
+                else if(connect == -1)
+                {
+                    tblErrName.Text = "Nom invalide";
+                }
+                else if(connect == -2)
+                {
+                    tblErrPass.Text = "Mot de passe invalide";
                 }
                 
             }

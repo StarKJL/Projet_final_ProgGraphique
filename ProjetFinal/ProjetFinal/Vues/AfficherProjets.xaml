@@ -15,16 +15,17 @@
         </Grid.RowDefinitions>
         <GridView
             Grid.Row="0"
-            x:Name="gvProjets">
+            x:Name="gvProjets"
+            SelectionChanged="gvProjets_SelectionChanged">
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="local:Projet">
                     <Grid
-                Width="400px"
-                Height="175px"
-                CornerRadius="20"
-                Padding="10"
-                Margin="5"
-                Background="LightBlue">
+                        Width="400px"
+                        Height="200px"
+                        CornerRadius="20"
+                        Padding="10"
+                        Margin="5"
+                        Background="LightBlue">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
@@ -35,9 +36,9 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Row="0">
-                    <Run Text="{x:Bind NoProjet}"/>
-                    <Run Text="|"/>
-                    <Run Text="{x:Bind NomClient}"/>
+                            <Run Text="{x:Bind NoProjet}"/>
+                            <Run Text="|"/>
+                            <Run Text="{x:Bind NomClient}"/>
                         </TextBlock>
                         <TextBlock Grid.Row="0" HorizontalAlignment="Right" Text="{x:Bind Statut}"/>
 
@@ -65,13 +66,6 @@
             </GridView.ItemTemplate>
 
         </GridView>
-        <!--
-        <StackPanel>
-            <ComboBox x:Name="cmbbxProjet"
-                      SelectedIndex="0">
-                
-            </ComboBox>
-        </StackPanel> -->
     </Grid>
     
 </Page>

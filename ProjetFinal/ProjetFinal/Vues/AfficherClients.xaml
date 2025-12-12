@@ -34,6 +34,10 @@
                         <Run Text="Tel:         "/>
                         <Run Text="{x:Bind Telephone, Mode=OneWay}"/>
                     </TextBlock>
+
+                    <Grid>
+                        <Button x:Name="btnModif" Click="btnModif_Click">Modifier</Button>
+                    </Grid>
                 </StackPanel>
             </DataTemplate>
         </GridView.ItemTemplate>

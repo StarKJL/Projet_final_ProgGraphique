@@ -10,7 +10,7 @@
 
     <StackPanel
         Width="400"
-        Height="500"
+        Height="400"
         Margin="50"
         Padding="20"
         CornerRadius="20"
@@ -20,9 +20,6 @@
         <TextBox x:Name="tbxNbrHrs" Header="Nombre d'heures"/>
         <TextBlock Foreground="Red" x:Name="tblErrHrs"/>
 
-        <TextBox x:Name="tbxSal" Header="Salaire"/>
-        <TextBlock Foreground="Red" x:Name="tblErrSal"/>
-
         <ComboBox x:Name="cmbbxProjet"
               Header="Projet"
               PlaceholderText="Sélectionnez un projet"
@@ -31,7 +28,7 @@
         <TextBlock Foreground="Red" x:Name="tblErrProjet"/>
 
         <ComboBox x:Name="cmbbxEmploye"
-              Header="Employe"
+              Header="Employé"
               PlaceholderText="Sélectionnez un employé"
               DisplayMemberPath="Nom" 
               Margin="5"/>

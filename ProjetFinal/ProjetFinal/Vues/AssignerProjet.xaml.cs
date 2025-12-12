@@ -8,6 +8,7 @@ using Microsoft.UI.Xaml.Navigation;
 using ProjetFinal.Classe;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,49 +28,58 @@ namespace ProjetFinal.Vues
         public AssignerProjet()
         {
             InitializeComponent();
-            cmbbxProjet.ItemsSource = SingletonDB.getInstance().ListeProjet;
+
             SingletonDB.getInstance().getAllProjets();
-            cmbbxEmploye.ItemsSource = SingletonDB.getInstance().ListeEmploye;
+            var projetsEnCours = SingletonDB.getInstance().ListeProjet
+            .Where(p => p.Statut == "En cours")
+            .ToList();
+
+            cmbbxProjet.ItemsSource = projetsEnCours;
+
+            var projetsEnCoursNo = SingletonDB.getInstance().ListeProjet
+            .Where(p => p.Statut == "En cours")
+            .Select(p => p.NoProjet)
+            .ToList();
+
+            SingletonDB.getInstance().getAllEmployeProjet();
+            var matriculesAssignés = SingletonDB.getInstance().ListeProjetEmploye
+                .Where(ep => projetsEnCoursNo.Contains(ep.ProjetId))
+                .Select(ep => ep.MatriculeId)
+                .Distinct()
+                .ToList();
+
             SingletonDB.getInstance().getAllEmploye();
+            var employesLibres = SingletonDB.getInstance().ListeEmploye
+                .Where(emp => !matriculesAssignés.Contains(emp.Matricule))
+                .ToList();
+
+            cmbbxEmploye.ItemsSource = employesLibres;
+
         }
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
             bool valide = true;
 
-            if(!int.TryParse(tbxNbrHrs.Text, out int nbr))
+            if (!int.TryParse(tbxNbrHrs.Text, out int nbr))
             {
                 valide = false;
-                tblErrHrs.Text = "Nombre d'heures invalide";
-            }else if (nbr <= 0)
+                tblErrHrs.Text = "Nombre d'heures non numérique";
+            }
+            else if (nbr <= 0)
             {
                 valide = false;
-                tblErrHrs.Text = "Nombre d'heures invalide";
+                tblErrHrs.Text = "Nombre d'heures négatif ou nul";
             }
             else
             {
                 tblErrHrs.Text = "";
             }
 
-            if (!double.TryParse(tbxSal.Text, out double dbl))
-            {
-                valide = false;
-                tblErrSal.Text = "Salaire invalide";
-            }
-            else if (dbl <= 0)
-            {
-                valide = false;
-                tblErrSal.Text = "Salaire invalide";
-            }
-            else
-            {
-                tblErrSal.Text = "";
-            }
-
             if (cmbbxProjet.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrProjet.Text = "Projet invalide";
+                tblErrProjet.Text = "Projet non sélectionné";
             }
             else
             {
@@ -79,7 +89,7 @@ namespace ProjetFinal.Vues
             if (cmbbxEmploye.SelectedIndex < 0)
             {
                 valide = false;
-                tblErrEmploye.Text = "Employé invalide";
+                tblErrEmploye.Text = "Employé non sélectionné";
             }
             else
             {
@@ -90,7 +100,7 @@ namespace ProjetFinal.Vues
             {
                 Employe employe = cmbbxEmploye.SelectedItem as Employe;
                 Projet projet = cmbbxProjet.SelectedItem as Projet;
-                SingletonDB.getInstance().associerEmployeAProjet(Convert.ToInt32(tbxNbrHrs.Text),Convert.ToDouble(tbxSal.Text),employe.Matricule,projet.NoProjet);
+                SingletonDB.getInstance().associerEmployeAProjet(Convert.ToInt32(tbxNbrHrs.Text),employe.Matricule,projet.NoProjet);
                 Frame.Navigate(typeof(AfficheAssign));
             }
         }

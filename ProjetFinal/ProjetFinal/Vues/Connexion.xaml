@@ -21,7 +21,7 @@
         <TextBox x:Name="tbxName" Header="Nom"/>
         <TextBlock Foreground="Red" x:Name="tblErrName"/>
 
-        <TextBox x:Name="tbxPass" Header="Mot de passe"/>
+        <PasswordBox x:Name="tbxPass" Header="Mot de passe"/>
         <TextBlock Foreground="Red" x:Name="tblErrPass"/>
 
         <Button Content="Soumettre" x:Name="btnSubmit" Click="btnSubmit_Click"/>

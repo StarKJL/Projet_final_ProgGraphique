@@ -26,9 +26,6 @@
             <TextBox x:Name="tbxBudget" Header="Budget"/>
             <TextBlock Foreground="Red" x:Name="tblErrBudget"/>
 
-            <TextBox x:Name="tbxSal" Header="Salaire total des employés"/>
-            <TextBlock Foreground="Red" x:Name="tblErrSal"/>
-
             <ComboBox x:Name="cmbbxClient"
                       Header="Client"
                       PlaceholderText="Sélectionnez un client"

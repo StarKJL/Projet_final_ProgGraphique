@@ -28,7 +28,58 @@ namespace ProjetFinal.Vues
         {
             InitializeComponent();
             gvAssign.ItemsSource=SingletonDB.getInstance().ListeProjetEmploye;
+            SingletonDB.getInstance().updateSalaire();
             SingletonDB.getInstance().getAllEmployeProjet();
+            SingletonDB.getInstance().updateTotalSalaire();
+        }
+
+        private async void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            if (!SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(Connexion), typeof(AfficheAssign));
+                return;
+            }
+
+            ContentDialog dialog = new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = "Suppression d'assignation",
+                Content = "Êtes-vous sûr de vouloir supprimer cette assignation?",
+                PrimaryButtonText = "Supprimer",
+                CloseButtonText = "Annuler",
+                DefaultButton = ContentDialogButton.Close
+            };
+
+            ContentDialogResult result = await dialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+            {
+                Button btn = sender as Button;
+                EmployeProjet ep = btn.DataContext as EmployeProjet;
+                if (ep != null)
+                {
+                    SingletonDB.getInstance().supprimerEmployeProjet(ep.Id);
+                    SingletonDB.getInstance().updateTotalSalaire();
+                }
+
+            }
+        }
+
+        private void btnModif_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+
+            EmployeProjet ep = btn.DataContext as EmployeProjet;
+            if (SingletonDB.getInstance().Compte.Actif)
+            {
+                Frame.Navigate(typeof(ModifAssign), ep);
+            }
+            else
+            {
+                object[] parametresRetour = new object[] { typeof(ModifAssign), ep };
+                Frame.Navigate(typeof(Connexion), parametresRetour);
+            }
         }
     }
 }
