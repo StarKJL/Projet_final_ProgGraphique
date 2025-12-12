@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Synthese (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Synthese (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
